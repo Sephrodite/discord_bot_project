@@ -1,0 +1,29 @@
+{
+    "User": {
+        "Character Name": {
+            "group": "student or adult",
+            "archetype": "char-che-type",
+            "skills": {
+                "apparition": 5,
+                "flying (brooms)": 5
+            }
+        }
+    },
+    "298490512128606223": {
+        "Auguste_Cavani": {
+            "group": "adult",
+            "archetype": "entertainer",
+            "skills": {}
+        },
+        "Serenity_Cidonys": {
+            "group": "adult",
+            "archetype": "tactician",
+            "skills": {}
+        },
+        "Apollo_Malfoy": {
+            "group": "student",
+            "archetype": "femme_fatale",
+            "skills": {}
+        }
+    }
+}
