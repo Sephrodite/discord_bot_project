@@ -7,6 +7,9 @@ from discord.ext import commands
 import random
 import json
 
+from functions import load_characters
+from functions import save_characters
+
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -62,9 +65,7 @@ async def create(ctx, name: str, group: str, archetype: str):
          return
 
 
-
-
-def load_characters(CHAR_FILE):
+""" def load_characters(CHAR_FILE):
     try:
         with open('characters.json', 'r') as file:
             characters = json.load(file)
@@ -77,8 +78,7 @@ def save_characters(characters):
         with open('characters.json', 'w') as file:
             json.dump(characters, file, indent=4)
     except FileNotFoundError:
-        return {}
-
+        return {} """
 
 
 @bot.command()
