@@ -1,28 +1,91 @@
 {
-    "User": {
-        "Character Name": {
-            "group": "student or adult",
-            "archetype": "char-che-type",
-            "skills": {
-                "apparition": 5,
-                "flying (brooms)": 5
-            }
-        }
-    },
     "298490512128606223": {
-        "Auguste_Cavani": {
+        "Auguste Cavani": {
             "group": "adult",
             "archetype": "entertainer",
-            "skills": {}
+            "skills": {
+                "apparition": 10,
+                "flying (brooms)": 20,
+                "flying (creatures)": 5,
+                "credit rating": 0,
+                "dark arts": 0,
+                "survival": 5,
+                "disguise": 15,
+                "stealth": 20,
+                "magigal theory": 15,
+                "first aid": 30,
+                "enchanting": 5,
+                "job specialties": {
+                    "magizoology": 5,
+                    "dragonology": 1,
+                    "wand lore": 1,
+                    "magical law": 5,
+                    "cultural knowledge": 10,
+                    "magical architecture": 5,
+                    "curse breaking": 1,
+                    "specialty healing": 1
+                },
+                "combat": {
+                    "brawling": 20,
+                    "dodge": 20,
+                    "duelling (offence)": 10,
+                    "duelling (defence)": 15
+                },
+                "classes": {
+                    "astronomy": 20,
+                    "charms": 20,
+                    "dada": 20,
+                    "herbology": 20,
+                    "hom": 20,
+                    "potions": 20,
+                    "transfigurations": 20,
+                    "arithmancy": 2,
+                    "comc": 2,
+                    "divination": 2,
+                    "muggle studies": 2,
+                    "ancient runes": 2,
+                    "alchemy": 1
+                },
+                "sports": {
+                    "quidditch": 15,
+                    "wizard chess": 25,
+                    "gobstones": 10,
+                    "exploding snap": 10,
+                    "quodpod": 15
+                },
+                "arts and crafts": {
+                    "any": 5
+                },
+                "language": {
+                    "native": 60,
+                    "other": 1
+                },
+                "special": {
+                    "wandless magic": 10,
+                    "non-verbal magic": 15,
+                    "occlumency": 5,
+                    "legillimency": 1
+                }
+            }
         },
-        "Serenity_Cidonys": {
+        "Serenity Cidonys": {
             "group": "adult",
             "archetype": "tactician",
             "skills": {}
         },
-        "Apollo_Malfoy": {
+        "Apollo Malfoy": {
             "group": "student",
-            "archetype": "femme_fatale",
+            "archetype": "femme fatale",
+            "skills": {}
+        },
+        "Nimue Morganach": {
+            "group": "adult",
+            "archetype": "cold blooded",
+            "skills": {}
+        },
+        "Samantha Sterling": {
+            "group": "student",
+            "archetype": "explorer",
             "skills": {}
         }
     }
