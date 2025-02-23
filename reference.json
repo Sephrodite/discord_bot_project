@@ -1,0 +1,140 @@
+{
+    "Default": {
+        "Character_Adult": {
+            "group": "adult",
+            "archetype": "char-che-type",
+            "skills": {
+                "apparition": 10,
+                "flying (brooms)": 20,
+                "flying (creatures)": 5,
+                "credit rating": 0,
+                "dark arts": 0,
+                "survival": 5,
+                "disguise": 15,
+                "stealth": 20,
+                "magigal theory": 15,
+                "first aid": 30,
+                "enchanting": 5,
+                "job specialties": {
+                    "magizoology": 5,
+                    "dragonology": 1,
+                    "wand lore": 1,
+                    "magical law": 5,
+                    "cultural knowledge": 10,
+                    "magical architecture": 5,
+                    "curse breaking": 1,
+                    "specialty healing": 1
+                },
+                "combat": {
+                    "brawling": 20,
+                    "dodge": 20,
+                    "duelling (offence)": 10,
+                    "duelling (defence)": 15
+                },
+                "classes": {
+                    "astronomy": 20,
+                    "charms": 20,
+                    "dada": 20,
+                    "herbology": 20,
+                    "hom": 20,
+                    "potions": 20,
+                    "transfigurations": 20,
+                    "arithmancy": 2,
+                    "comc": 2,
+                    "divination": 2,
+                    "muggle studies": 2,
+                    "ancient runes": 2,
+                    "alchemy": 1
+                },
+                "sports": {
+                    "quidditch": 15,
+                    "wizard chess": 25,
+                    "gobstones": 10,
+                    "exploding snap": 10,
+                    "quodpod": 15
+                },
+                "arts and crafts": {
+                    "any": 5
+                },
+                "language": {
+                    "native": 60,
+                    "other": 1
+                },
+                "special": {
+                    "wandless magic": 10,
+                    "non-verbal magic": 15,
+                    "occlumency": 5,
+                    "legillimency": 1
+                }
+            }
+        },
+        "Character_Student": {
+            "group": "student",
+            "archetype": "char-che-type",
+            "skills": {
+                "apparition": 1,
+                "flying (brooms)": 5,
+                "flying (creatures)": 5,
+                "credit rating": 0,
+                "dark arts": 0,
+                "survival": 5,
+                "disguise": 15,
+                "stealth": 20,
+                "magigal theory": 10,
+                "first aid": 25,
+                "enchanting": 1,
+                "job specialties": {
+                    "magizoology": 5,
+                    "dragonology": 1,
+                    "wand lore": 1,
+                    "magical law": 5,
+                    "cultural knowledge": 10,
+                    "magical architecture": 5,
+                    "curse breaking": 1,
+                    "specialty healing": 1
+                },
+                "combat": {
+                    "brawling": 20,
+                    "dodge": 20,
+                    "duelling (offence)": 2,
+                    "duelling (defence)": 5
+                },
+                "classes": {
+                    "astronomy": 5,
+                    "charms": 5,
+                    "dada": 5,
+                    "herbology": 5,
+                    "hom": 5,
+                    "potions": 5,
+                    "transfigurations": 5,
+                    "arithmancy": 2,
+                    "comc": 2,
+                    "divination": 2,
+                    "muggle studies": 2,
+                    "ancient runes": 2,
+                    "alchemy": 1
+                },
+                "sports": {
+                    "quidditch": 10,
+                    "wizard chess": 20,
+                    "gobstones": 5,
+                    "exploding snap": 5,
+                    "quodpod": 10
+                },
+                "arts and crafts": {
+                    "any": 5
+                },
+                "language": {
+                    "native": 60,
+                    "other": 1
+                },
+                "special": {
+                    "wandless magic": 5,
+                    "non-verbal magic": 10,
+                    "occlumency": 2,
+                    "legillimency": 1
+                }
+            }
+        }
+    }
+}
