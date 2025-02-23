@@ -9,6 +9,7 @@ import json
 
 from functions import load_characters
 from functions import save_characters
+from functions import roll_default
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -25,7 +26,7 @@ async def on_ready():
 @bot.command()
 async def hello(ctx):
 	await ctx.send(f'Hello, {ctx.author.display_name}!')
-	
+     
 @bot.command()
 async def roll(ctx, dice: str):
     try: 
@@ -48,8 +49,6 @@ async def roll(ctx, dice: str):
 @bot.command()
 async def create(ctx, name: str, group: str, archetype: str):
     try:
-        # with open('characters.json', 'r') as file:
-        #     characters = json.load(file)
         characters = load_characters(CHAR_FILE)
         user_id = str(ctx.author.id)
 
@@ -63,23 +62,6 @@ async def create(ctx, name: str, group: str, archetype: str):
         save_characters(characters)
     except FileNotFoundError:
          return
-
-
-""" def load_characters(CHAR_FILE):
-    try:
-        with open('characters.json', 'r') as file:
-            characters = json.load(file)
-            return characters
-    except FileNotFoundError:
-         return {}
-
-def save_characters(characters):
-    try:
-        with open('characters.json', 'w') as file:
-            json.dump(characters, file, indent=4)
-    except FileNotFoundError:
-        return {} """
-
 
 @bot.command()
 async def listchars(ctx):
@@ -105,6 +87,40 @@ async def charbase(ctx, char_name:str):
         msg = "### " + char_name + "\n" + "Group: " + char_group + "\n" + "Archetype: " + char_arch
     await ctx.send(f'{msg}')
 
+@bot.command()
+async def skill(ctx, char_name:str, char_skill:str):
+    characters = load_characters(CHAR_FILE)
+    user_id = str(ctx.author.id)
+
+    if user_id in characters:
+         if char_name in characters[user_id]:
+            if char_skill in characters[user_id][char_name]["skills"]:
+                char_skill = int(characters[user_id][char_name]["skills"][char_skill])
+                msg = roll_default(char_skill)
+            elif char_skill in characters[user_id][char_name]["skills"]["job specialties"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["job specialties"][char_skill])
+                msg = roll_default(char_skill)
+            elif char_skill in characters[user_id][char_name]["skills"]["combat"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["combat"][char_skill])
+                msg = roll_default(char_skill)
+            elif char_skill in characters[user_id][char_name]["skills"]["classes"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["classes"][char_skill])
+                msg = roll_default(char_skill)
+            elif char_skill in characters[user_id][char_name]["skills"]["sports"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["sports"][char_skill])
+                msg = roll_default(char_skill)
+            elif char_skill in characters[user_id][char_name]["skills"]["arts and crafts"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["arts and crafts"][char_skill])
+                msg = roll_default(char_skill)
+            elif char_skill in characters[user_id][char_name]["skills"]["language"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["language"][char_skill])
+                msg = roll_default(char_skill)
+            elif char_skill in characters[user_id][char_name]["skills"]["special"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["special"][char_skill])
+                msg = roll_default(char_skill)
+            else:
+                msg = "Your characters doesn't have this skill listed yet! Please use the [!add WIP] command to add the skill!"
+    await ctx.send(f'{msg}')
 # You could add more commands for showchar, updatechar, delchar, etc.
 
 if TOKEN is None:
