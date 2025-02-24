@@ -66,27 +66,34 @@
                     "occlumency": 5,
                     "legillimency": 1
                 }
-            }
+            },
+            "checked skills": [
+                "native"
+            ]
         },
         "Serenity Cidonys": {
             "group": "adult",
             "archetype": "tactician",
-            "skills": {}
+            "skills": {},
+            "checked skills": []
         },
         "Apollo Malfoy": {
             "group": "student",
             "archetype": "femme fatale",
-            "skills": {}
+            "skills": {},
+            "checked skills": []
         },
         "Nimue Morganach": {
             "group": "adult",
             "archetype": "cold blooded",
-            "skills": {}
+            "skills": {},
+            "checked skills": []
         },
         "Samantha Sterling": {
             "group": "student",
             "archetype": "explorer",
-            "skills": {}
+            "skills": {},
+            "checked skills": []
         }
     }
 }

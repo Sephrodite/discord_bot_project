@@ -55,9 +55,9 @@ async def create(ctx, name: str, group: str, archetype: str):
         if user_id not in characters:
             characters[user_id] = {}
             
-        characters[user_id][name] = {"group": group, "archetype": archetype, "skills":{}}
+        characters[user_id][name] = {"group": group, "archetype": archetype, "skills":{}, "checked skills":[]}
 
-        await ctx.send(f'Character creation attempted.')
+        await ctx.send(f'Character {name} successfully added to {ctx.author.display_name}\'s character list!')
 
         save_characters(characters)
     except FileNotFoundError:
@@ -91,35 +91,40 @@ async def charbase(ctx, char_name:str):
 async def skill(ctx, char_name:str, char_skill:str):
     characters = load_characters(CHAR_FILE)
     user_id = str(ctx.author.id)
+    char_skill_name = char_skill
 
     if user_id in characters:
-         if char_name in characters[user_id]:
+        if char_name in characters[user_id]:
             if char_skill in characters[user_id][char_name]["skills"]:
                 char_skill = int(characters[user_id][char_name]["skills"][char_skill])
-                msg = roll_default(char_skill)
+                msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             elif char_skill in characters[user_id][char_name]["skills"]["job specialties"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["job specialties"][char_skill])
-                msg = roll_default(char_skill)
+                msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             elif char_skill in characters[user_id][char_name]["skills"]["combat"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["combat"][char_skill])
-                msg = roll_default(char_skill)
+                msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             elif char_skill in characters[user_id][char_name]["skills"]["classes"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["classes"][char_skill])
-                msg = roll_default(char_skill)
+                msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             elif char_skill in characters[user_id][char_name]["skills"]["sports"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["sports"][char_skill])
-                msg = roll_default(char_skill)
+                msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             elif char_skill in characters[user_id][char_name]["skills"]["arts and crafts"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["arts and crafts"][char_skill])
-                msg = roll_default(char_skill)
+                msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             elif char_skill in characters[user_id][char_name]["skills"]["language"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["language"][char_skill])
-                msg = roll_default(char_skill)
+                msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             elif char_skill in characters[user_id][char_name]["skills"]["special"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["special"][char_skill])
-                msg = roll_default(char_skill)
+                msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             else:
                 msg = "Your characters doesn't have this skill listed yet! Please use the [!add WIP] command to add the skill!"
+        else:
+            msg = "Please create this character to roll skills for them! You can check your character list with the !listchars command. Please check the spelling to make sure your character can be found by me!"
+    else:
+        msg= "Please create your first character to participate in skill checks!"
     await ctx.send(f'{msg}')
 # You could add more commands for showchar, updatechar, delchar, etc.
 

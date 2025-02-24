@@ -31,6 +31,13 @@
                     "duelling (offence)": 10,
                     "duelling (defence)": 15
                 },
+                "social":{
+                    "charm": 15,
+                    "fast talk": 5,
+                    "persuade": 10,
+                    "psychology": 10,
+                    "psychoanalysis": 1
+                },
                 "classes": {
                     "astronomy": 20,
                     "charms": 20,
@@ -99,6 +106,13 @@
                     "duelling (offence)": 2,
                     "duelling (defence)": 5
                 },
+                "social":{
+                    "charm": 15,
+                    "fast talk": 5,
+                    "persuade": 10,
+                    "psychology": 10,
+                    "psychoanalysis": 1
+                },
                 "classes": {
                     "astronomy": 5,
                     "charms": 5,
@@ -135,6 +149,28 @@
                     "legillimency": 1
                 }
             }
-        }
+        },
+        "adventurer":{},
+        "beefcake":{},
+        "bon vivant":{},
+        "cold blooded":{},
+        "dreamer":{},
+        "egghead":{},
+        "explorer":{},
+        "le fatale": {},
+        "grease monkey":{},
+        "hard boiled":{},
+        "harlequin":{},
+        "hunter":{},
+        "mystic":{},
+        "outsider":{},
+        "rogue":{},
+        "scholar":{},
+        "seeker":{},
+        "sidekick":{},
+        "steadfast":{},
+        "swashbuckler":{},
+        "thrill seeker":{},
+        "two fisted":{}
     }
 }
