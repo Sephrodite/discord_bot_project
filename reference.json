@@ -1,176 +1,399 @@
 {
-    "Default": {
-        "Character_Adult": {
-            "group": "adult",
-            "archetype": "char-che-type",
-            "skills": {
-                "apparition": 10,
-                "flying (brooms)": 20,
-                "flying (creatures)": 5,
-                "credit rating": 0,
-                "dark arts": 0,
-                "survival": 5,
-                "disguise": 15,
-                "stealth": 20,
-                "magigal theory": 15,
-                "first aid": 30,
-                "enchanting": 5,
-                "job specialties": {
-                    "magizoology": 5,
-                    "dragonology": 1,
-                    "wand lore": 1,
-                    "magical law": 5,
-                    "cultural knowledge": 10,
-                    "magical architecture": 5,
-                    "curse breaking": 1,
-                    "specialty healing": 1
-                },
-                "combat": {
-                    "brawling": 20,
-                    "dodge": 20,
-                    "duelling (offence)": 10,
-                    "duelling (defence)": 15
-                },
-                "social":{
-                    "charm": 15,
-                    "fast talk": 5,
-                    "persuade": 10,
-                    "psychology": 10,
-                    "psychoanalysis": 1
-                },
-                "classes": {
-                    "astronomy": 20,
-                    "charms": 20,
-                    "dada": 20,
-                    "herbology": 20,
-                    "hom": 20,
-                    "potions": 20,
-                    "transfigurations": 20,
-                    "arithmancy": 2,
-                    "comc": 2,
-                    "divination": 2,
-                    "muggle studies": 2,
-                    "ancient runes": 2,
-                    "alchemy": 1
-                },
-                "sports": {
-                    "quidditch": 15,
-                    "wizard chess": 25,
-                    "gobstones": 10,
-                    "exploding snap": 10,
-                    "quodpod": 15
-                },
-                "arts and crafts": {
-                    "any": 5
-                },
-                "language": {
-                    "native": 60,
-                    "other": 1
-                },
-                "special": {
-                    "wandless magic": 10,
-                    "non-verbal magic": 15,
-                    "occlumency": 5,
-                    "legillimency": 1
-                }
+    "adult": {
+        "job points": 280,
+        "personal interest": 120,
+        "skills": {
+            "apparition": 10,
+            "flying (brooms)": 20,
+            "flying (creatures)": 5,
+            "credit rating": 0,
+            "dark arts": 0,
+            "survival": 5,
+            "disguise": 15,
+            "stealth": 20,
+            "magical theory": 15,
+            "first aid": 30,
+            "enchanting": 5,
+            "job specialties": {
+                "magizoology": 5,
+                "dragonology": 1,
+                "wand lore": 1,
+                "magical law": 5,
+                "cultural knowledge": 10,
+                "magical architecture": 5,
+                "curse breaking": 1,
+                "specialty healing": 1
+            },
+            "combat": {
+                "brawling": 20,
+                "dodge": 20,
+                "duelling (offence)": 10,
+                "duelling (defence)": 15
+            },
+            "social": {
+                "charm": 15,
+                "fast talk": 5,
+                "intimidate": 15,
+                "persuade": 10,
+                "psychology": 10,
+                "psychoanalysis": 1
+            },
+            "classes": {
+                "astronomy": 20,
+                "charms": 20,
+                "dada": 20,
+                "herbology": 20,
+                "hom": 20,
+                "potions": 20,
+                "transfigurations": 20,
+                "arithmancy": 2,
+                "comc": 2,
+                "divination": 2,
+                "muggle studies": 2,
+                "ancient runes": 2,
+                "alchemy": 1
+            },
+            "sports": {
+                "quidditch": 15,
+                "wizard chess": 25,
+                "gobstones": 10,
+                "exploding snap": 10,
+                "quodpod": 15
+            },
+            "arts and crafts": {
+                "any": 5,
+                "acting": 5,
+                "photography": 5
+            },
+            "language": {
+                "native": 60,
+                "other": 1
+            },
+            "special": {
+                "wandless magic": 10,
+                "non-verbal magic": 15,
+                "occlumency": 5,
+                "legillimency": 1
             }
-        },
-        "Character_Student": {
-            "group": "student",
-            "archetype": "char-che-type",
-            "skills": {
-                "apparition": 1,
-                "flying (brooms)": 5,
-                "flying (creatures)": 5,
-                "credit rating": 0,
-                "dark arts": 0,
-                "survival": 5,
-                "disguise": 15,
-                "stealth": 20,
-                "magigal theory": 10,
-                "first aid": 25,
-                "enchanting": 1,
-                "job specialties": {
-                    "magizoology": 5,
-                    "dragonology": 1,
-                    "wand lore": 1,
-                    "magical law": 5,
-                    "cultural knowledge": 10,
-                    "magical architecture": 5,
-                    "curse breaking": 1,
-                    "specialty healing": 1
-                },
-                "combat": {
-                    "brawling": 20,
-                    "dodge": 20,
-                    "duelling (offence)": 2,
-                    "duelling (defence)": 5
-                },
-                "social":{
-                    "charm": 15,
-                    "fast talk": 5,
-                    "persuade": 10,
-                    "psychology": 10,
-                    "psychoanalysis": 1
-                },
-                "classes": {
-                    "astronomy": 5,
-                    "charms": 5,
-                    "dada": 5,
-                    "herbology": 5,
-                    "hom": 5,
-                    "potions": 5,
-                    "transfigurations": 5,
-                    "arithmancy": 2,
-                    "comc": 2,
-                    "divination": 2,
-                    "muggle studies": 2,
-                    "ancient runes": 2,
-                    "alchemy": 1
-                },
-                "sports": {
-                    "quidditch": 10,
-                    "wizard chess": 20,
-                    "gobstones": 5,
-                    "exploding snap": 5,
-                    "quodpod": 10
-                },
-                "arts and crafts": {
-                    "any": 5
-                },
-                "language": {
-                    "native": 60,
-                    "other": 1
-                },
-                "special": {
-                    "wandless magic": 5,
-                    "non-verbal magic": 10,
-                    "occlumency": 2,
-                    "legillimency": 1
-                }
+        }
+    },
+    "adventurer": {
+        "apparition": 10,
+        "survival": 20,
+        "stealth": 10,
+        "cultural knowledge": 10,
+        "first aid": 10,
+        "duelling (defence)": 10,
+        "dodge": 10,
+        "charms": 10,
+        "quidditch": 10
+    },
+    "beefcake": {
+        "brawling": 20,
+        "psychology": 10,
+        "intimidate": 20,
+        "quidditch": 10,
+        "herbology": 5,
+        "duelling (offence)": 15,
+        "dada": 10,
+        "comc": 5,
+        "flying (brooms)": 5
+    },
+    "bon vivant": {
+        "any": 15,
+        "charm": 10,
+        "fast talk": 10,
+        "psychology": 15,
+        "other": 20,
+        "charms": 5,
+        "disguise": 5,
+        "apparition": 10,
+        "flying (brooms)": 10
+    },
+    "cold blooded": {
+        "disguise": 10,
+        "duelling (offence)": 15,
+        "duelling (defence)": 10,
+        "first aid": 10,
+        "hom": 10,
+        "intimidate": 10,
+        "magical law": 15,
+        "psychology": 10,
+        "stealth": 5,
+        "survival": 5
+    },
+    "dreamer": {
+        "any": 30,
+        "charm": 10,
+        "hom": 5,
+        "other": 20,
+        "herbology": 5,
+        "magizoology": 5,
+        "charms": 10,
+        "divination": 10,
+        "enchanting": 5
+    },
+    "egghead": {
+        "cultural knowledge": 15,
+        "other": 15,
+        "transfigurations": 10,
+        "potions": 10,
+        "astronomy": 10,
+        "enchanting": 15,
+        "alchemy": 15,
+        "herbology": 10
+    },
+    "explorer": {
+        "comc": 15,
+        "cultural knowledge": 5,
+        "brawling": 10,
+        "first aid": 15,
+        "other": 20,
+        "magizoology": 10,
+        "flying (brooms)": 5,
+        "flying (creatures)": 5,
+        "stealth": 10,
+        "herbology": 5
+    },
+    "le fatale": {
+        "acting": 10,
+        "charm": 15,
+        "disguise": 5,
+        "flying (brooms)": 10,
+        "fast talk": 15,
+        "brawling": 10,
+        "duelling (offence)": 10,
+        "psychology": 5,
+        "stealth": 10,
+        "potions": 10
+    },
+    "grease monkey": {
+        "any": 15,
+        "brawling": 10,
+        "flying (brooms)": 5,
+        "exploding snap": 5,
+        "muggle studies": 15,
+        "enchanting": 15,
+        "wandless magic": 10,
+        "astronomy": 15,
+        "potions": 10
+    },
+    "hard boiled": {
+        "brawling": 10,
+        "duelling (offence)": 10,
+        "flying (brooms)": 10,
+        "fast talk": 15,
+        "intimidate": 15,
+        "magical law": 15,
+        "curse breaking": 5,
+        "transfigurations": 10,
+        "survival": 10
+    },
+    "harlequin": {
+        "acting": 15,
+        "charm": 15,
+        "disguise": 10,
+        "fast talk": 15,
+        "persuade": 15,
+        "psychology": 10,
+        "stealth": 10,
+        "wizard chess": 10
+    },
+    "hunter": {
+        "comc": 15,
+        "duelling (defence)": 15,
+        "duelling (offence)": 10,
+        "first aid": 10,
+        "magizoology": 10,
+        "stealth": 10,
+        "survival": 10,
+        "potions": 10,
+        "herbology": 10
+    },
+    "mystic": {
+        "astronomy": 10,
+        "disguise": 10,
+        "hom": 10,
+        "magizoology": 10,
+        "psychology": 20,
+        "stealth": 20,
+        "divination": 10,
+        "arithmancy": 10
+    },
+    "outsider": {
+        "any": 5,
+        "comc": 15,
+        "duelling (defence)": 10,
+        "first aid": 15,
+        "intimidate": 10,
+        "other": 10,
+        "specialty healing": 10,
+        "stealth": 10,
+        "survival": 15
+    },
+    "rogue": {
+        "any": 5,
+        "charm": 10,
+        "disguise": 10,
+        "fast talk": 10,
+        "magical law": 15,
+        "psychology": 10,
+        "stealth": 20,
+        "transfigurations": 10,
+        "charms": 10
+    },
+    "scholar": {
+        "astronomy": 5,
+        "charms": 5,
+        "dada": 5,
+        "herbology": 5,
+        "hom": 5,
+        "potions": 5,
+        "transfigurations": 5,
+        "arithmancy": 5,
+        "muggle studies": 5,
+        "ancient runes": 5,
+        "magizoology": 5,
+        "magical law": 5,
+        "specialty healing": 5,
+        "wizard chess": 5,
+        "magical theory": 30
+    },
+    "seeker": {
+        "disguise": 5,
+        "hom": 15,
+        "magical law": 15,
+        "psychology": 15,
+        "stealth": 10,
+        "muggle studies": 10,
+        "magical theory": 15,
+        "enchanting": 15
+    },
+    "sidekick": {
+        "comc": 10,
+        "fast talk": 20,
+        "first aid": 10,
+        "photography": 10,
+        "magizoology": 10,
+        "stealth": 20,
+        "dodge": 20
+    },
+    "steadfast": {
+        "flying (brooms)": 10,
+        "duelling (defence)": 15,
+        "duelling (offence)": 15,
+        "first aid": 10,
+        "hom": 10,
+        "magical law": 10,
+        "intimidate": 10,
+        "persuade": 10,
+        "psychology": 5,
+        "survival": 5
+    },
+    "swashbuckler": {
+        "any": 10,
+        "duelling (defence)": 10,
+        "other": 20,
+        "stealth": 10,
+        "flying (brooms)": 10,
+        "charm": 10,
+        "dada": 15,
+        "charms": 15
+    },
+    "thrill seeker": {
+        "any": 5,
+        "charm": 10,
+        "flying (broom)": 15,
+        "fast talk": 10,
+        "quidditch": 15,
+        "dodge": 20,
+        "apparition": 10,
+        "dragonology": 5,
+        "curse breaking": 5,
+        "flying (creatures)": 5
+    },
+    "two fisted": {
+        "flying (brooms)": 15,
+        "brawling": 20,
+        "duelling (offence)": 20,
+        "intimidate": 15,
+        "dada": 15,
+        "quidditch": 15
+    },
+    "student": {
+        "job points": 100,
+        "personal interest": 120,
+        "skills": {
+            "apparition": 1,
+            "flying (brooms)": 5,
+            "flying (creatures)": 5,
+            "credit rating": 0,
+            "dark arts": 0,
+            "survival": 5,
+            "disguise": 15,
+            "stealth": 20,
+            "magical theory": 10,
+            "first aid": 25,
+            "enchanting": 1,
+            "job specialties": {
+                "magizoology": 5,
+                "dragonology": 1,
+                "wand lore": 1,
+                "magical law": 5,
+                "cultural knowledge": 10,
+                "magical architecture": 5,
+                "curse breaking": 1,
+                "specialty healing": 1
+            },
+            "combat": {
+                "brawling": 20,
+                "dodge": 20,
+                "duelling (offence)": 2,
+                "duelling (defence)": 5
+            },
+            "social": {
+                "charm": 15,
+                "fast talk": 5,
+                "intimidate": 15,
+                "persuade": 10,
+                "psychology": 10,
+                "psychoanalysis": 1
+            },
+            "classes": {
+                "astronomy": 5,
+                "charms": 5,
+                "dada": 5,
+                "herbology": 5,
+                "hom": 5,
+                "potions": 5,
+                "transfigurations": 5,
+                "arithmancy": 2,
+                "comc": 2,
+                "divination": 2,
+                "muggle studies": 2,
+                "ancient runes": 2,
+                "alchemy": 1
+            },
+            "sports": {
+                "quidditch": 10,
+                "wizard chess": 20,
+                "gobstones": 5,
+                "exploding snap": 5,
+                "quodpod": 10
+            },
+            "arts and crafts": {
+                "any": 5
+            },
+            "language": {
+                "native": 60,
+                "other": 1
+            },
+            "special": {
+                "wandless magic": 5,
+                "non-verbal magic": 10,
+                "occlumency": 2,
+                "legillimency": 1
             }
-        },
-        "adventurer":{},
-        "beefcake":{},
-        "bon vivant":{},
-        "cold blooded":{},
-        "dreamer":{},
-        "egghead":{},
-        "explorer":{},
-        "le fatale": {},
-        "grease monkey":{},
-        "hard boiled":{},
-        "harlequin":{},
-        "hunter":{},
-        "mystic":{},
-        "outsider":{},
-        "rogue":{},
-        "scholar":{},
-        "seeker":{},
-        "sidekick":{},
-        "steadfast":{},
-        "swashbuckler":{},
-        "thrill seeker":{},
-        "two fisted":{}
+        }
     }
 }
