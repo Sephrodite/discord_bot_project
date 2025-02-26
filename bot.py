@@ -10,6 +10,10 @@ import json
 from functions import load_characters
 from functions import save_characters
 from functions import roll_default
+from functions import level_up
+from info import info_arche
+from functions import add_default_skills
+from functions import add_archetype_skills
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -51,15 +55,18 @@ async def create(ctx, name: str, group: str, archetype: str):
     try:
         characters = load_characters(CHAR_FILE)
         user_id = str(ctx.author.id)
+        char_name = name
 
         if user_id not in characters:
             characters[user_id] = {}
             
-        characters[user_id][name] = {"group": group, "archetype": archetype, "skills":{}, "checked skills":[]}
+            add_default_skills(user_id, char_name, group, archetype)
+            add_archetype_skills(user_id, char_name, group, archetype)
 
-        await ctx.send(f'Character {name} successfully added to {ctx.author.display_name}\'s character list!')
+            await ctx.send(f'Character {name} successfully added to {ctx.author.display_name}\'s character list!')
+        else:
+            await ctx.send(f'Characters {name} already exists!')
 
-        save_characters(characters)
     except FileNotFoundError:
          return
 
@@ -127,6 +134,34 @@ async def skill(ctx, char_name:str, char_skill:str):
         msg= "Please create your first character to participate in skill checks!"
     await ctx.send(f'{msg}')
 # You could add more commands for showchar, updatechar, delchar, etc.
+
+@bot.command()
+async def lvlup(ctx):
+    author = (ctx.author.id)
+    if author == 298490512128606223:
+        level_up()
+        await ctx.send(f'Level up successful!')
+    else:
+        await ctx.send(f'Unauthorised action. Seph will run a level up once a month!')
+        
+@bot.command()
+async def infoarchetype(ctx, archetype:str):
+    if archetype == "info":
+        msg = "These are the various archetypes to choose from. They have 100 skill points divided between the associated skills. Some have more associated skills but they have less points per skill compared to those that are already more specialised.\n\nList of available archetypes: \n- adventurer \n- beefcake \n- bon vivant \n- cold blooded \n- dreamer \n- egghead \n- explorer \n- le fatale \n- grease monkey \n- hard boiled \n- harlequin \n- hunter \n- mystic \n- outsider \n- rogue \n- scholar \n- seeker \n- sidekick \n- steadfast \n- swashbuckler \n- thrill seeker \n- two fisted"
+    else:
+        msg = info_arche(archetype)
+    await ctx.send(f'{msg}')
+
+@bot.command()
+async def tester(ctx, name: str, group: str, archetype: str):
+    user_id = str(ctx.author.id)
+    char_name = name
+    
+@bot.command()
+async def assign(ctx):
+     await ctx.send(f'in progress')
+
+
 
 if TOKEN is None:
 	print("ERROR: DISCORD_BOT_TOKEN not found in environment variables")
