@@ -14,6 +14,7 @@ from functions import level_up
 from info import info_arche
 from functions import add_default_skills
 from functions import add_archetype_skills
+from functions import quick_assign
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -56,10 +57,14 @@ async def create(ctx, name: str, group: str, archetype: str):
         characters = load_characters(CHAR_FILE)
         user_id = str(ctx.author.id)
         char_name = name
+        group = group.lower()
+        archetype = archetype.lower()
 
         if user_id not in characters:
             characters[user_id] = {}
-            
+            save_characters(characters)
+
+        if char_name not in characters[user_id]:
             add_default_skills(user_id, char_name, group, archetype)
             add_archetype_skills(user_id, char_name, group, archetype)
 
@@ -95,36 +100,36 @@ async def charbase(ctx, char_name:str):
     await ctx.send(f'{msg}')
 
 @bot.command()
-async def skill(ctx, char_name:str, char_skill:str):
+async def skill(ctx, char_name:str, char_skill_name:str):
     characters = load_characters(CHAR_FILE)
     user_id = str(ctx.author.id)
-    char_skill_name = char_skill
+    char_skill_name = char_skill_name.lower()
 
     if user_id in characters:
         if char_name in characters[user_id]:
-            if char_skill in characters[user_id][char_name]["skills"]:
-                char_skill = int(characters[user_id][char_name]["skills"][char_skill])
+            if char_skill_name in characters[user_id][char_name]["skills"]:
+                char_skill = int(characters[user_id][char_name]["skills"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
-            elif char_skill in characters[user_id][char_name]["skills"]["job specialties"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["job specialties"][char_skill])
+            elif char_skill_name in characters[user_id][char_name]["skills"]["job specialties"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["job specialties"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
-            elif char_skill in characters[user_id][char_name]["skills"]["combat"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["combat"][char_skill])
+            elif char_skill_name in characters[user_id][char_name]["skills"]["combat"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["combat"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
-            elif char_skill in characters[user_id][char_name]["skills"]["classes"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["classes"][char_skill])
+            elif char_skill_name in characters[user_id][char_name]["skills"]["classes"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["classes"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
-            elif char_skill in characters[user_id][char_name]["skills"]["sports"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["sports"][char_skill])
+            elif char_skill_name in characters[user_id][char_name]["skills"]["sports"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["sports"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
-            elif char_skill in characters[user_id][char_name]["skills"]["arts and crafts"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["arts and crafts"][char_skill])
+            elif char_skill_name in characters[user_id][char_name]["skills"]["arts and crafts"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["arts and crafts"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
-            elif char_skill in characters[user_id][char_name]["skills"]["language"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["language"][char_skill])
+            elif char_skill_name in characters[user_id][char_name]["skills"]["language"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["language"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
-            elif char_skill in characters[user_id][char_name]["skills"]["special"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["special"][char_skill])
+            elif char_skill_name in characters[user_id][char_name]["skills"]["special"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["special"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             else:
                 msg = "Your characters doesn't have this skill listed yet! Please use the [!add WIP] command to add the skill!"
@@ -146,10 +151,12 @@ async def lvlup(ctx):
         
 @bot.command()
 async def infoarchetype(ctx, archetype:str):
+    archetype = archetype.lower()
     if archetype == "info":
         msg = "These are the various archetypes to choose from. They have 100 skill points divided between the associated skills. Some have more associated skills but they have less points per skill compared to those that are already more specialised.\n\nList of available archetypes: \n- adventurer \n- beefcake \n- bon vivant \n- cold blooded \n- dreamer \n- egghead \n- explorer \n- le fatale \n- grease monkey \n- hard boiled \n- harlequin \n- hunter \n- mystic \n- outsider \n- rogue \n- scholar \n- seeker \n- sidekick \n- steadfast \n- swashbuckler \n- thrill seeker \n- two fisted"
     else:
         msg = info_arche(archetype)
+    
     await ctx.send(f'{msg}')
 
 @bot.command()
@@ -158,9 +165,15 @@ async def tester(ctx, name: str, group: str, archetype: str):
     char_name = name
     
 @bot.command()
-async def assign(ctx):
+async def assign(ctx, char_name:str, origin: str, char_skill:str, amount: int):
      await ctx.send(f'in progress')
 
+@bot.command()
+async def quickassign(ctx, char_name:str, *skills:str):
+    user_id = str(ctx.author.id)
+    print(skills)
+    msg = quick_assign(user_id, char_name, skills)
+    await ctx.send(f'{msg}')
 
 
 if TOKEN is None:

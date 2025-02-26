@@ -33,6 +33,7 @@ def save_characters(characters):
         return {}
     
 def roll_default(char_skill, char_skill_name, characters, user_id, char_name):
+    
     roll = (random.randint(1, 100))
     if roll <= char_skill:
         roll= str(roll)
@@ -72,6 +73,11 @@ def level_up():
                     char_skill = int(characters[user_id][char_name]["skills"]["combat"][char_skill_name])
                     char_skill = roll_up(char_skill)
                     (characters[user_id][char_name]["skills"]["combat"][char_skill_name])=char_skill
+
+                elif char_skill_name in characters[user_id][char_name]["skills"]["social"]:
+                    char_skill = int(characters[user_id][char_name]["skills"]["social"][char_skill_name])
+                    char_skill = roll_up(char_skill)
+                    (characters[user_id][char_name]["skills"]["social"][char_skill_name])=char_skill
 
                 elif char_skill_name in characters[user_id][char_name]["skills"]["classes"]:
                     char_skill = int(characters[user_id][char_name]["skills"]["classes"][char_skill_name])
@@ -142,6 +148,10 @@ def add_archetype_skills(user_id, char_name, group, archetype):
             elif skill_name in characters[user_id][char_name]["skills"]["combat"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["combat"][skill_name]) + skill_points
                 (characters[user_id][char_name]["skills"]["combat"][skill_name])=char_skill
+            
+            elif skill_name in characters[user_id][char_name]["skills"]["social"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["social"][skill_name]) + skill_points
+                (characters[user_id][char_name]["skills"]["social"][skill_name])=char_skill
                 
             elif skill_name in characters[user_id][char_name]["skills"]["classes"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["classes"][skill_name]) + skill_points
@@ -165,6 +175,79 @@ def add_archetype_skills(user_id, char_name, group, archetype):
 
             save_characters(characters)
 
+def quick_assign(user_id, char_name, skills):
+    characters = load_characters(CHAR_FILE)
+    point_job = int(characters[user_id][char_name]["job points"]) 
+    point_pers = int(characters[user_id][char_name]["personal interest"])
+    point_total = point_job + point_pers
+    skill_amount = len(skills)*30
+    
+    if point_total >= skill_amount:
+        for x in range(len(skills)) :
+            char_skill_name = str(skills[x])
+
+            print(char_skill_name)
+            if   point_job >= 30:
+                point_job = point_job - 30
+                print(point_job)
+                (characters[user_id][char_name]["job points"])=point_job
+                save_characters(characters)
+            elif point_pers >= 30:
+                point_pers = point_pers - 30
+                print(point_pers)
+                (characters[user_id][char_name]["personal interest"])=point_pers
+                save_characters(characters)
+
+            if char_skill_name in characters[user_id][char_name]["skills"]:
+                char_skill = int(characters[user_id][char_name]["skills"][char_skill_name])
+                char_skill = char_skill + 30
+                (characters[user_id][char_name]["skills"][char_skill_name])=char_skill
+
+            elif char_skill_name in characters[user_id][char_name]["skills"]["job specialties"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["job specialties"][char_skill_name])
+                char_skill = char_skill + 30
+                (characters[user_id][char_name]["skills"]["job specialties"][char_skill_name])=char_skill
+
+            elif char_skill_name in characters[user_id][char_name]["skills"]["combat"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["combat"][char_skill_name])
+                char_skill = char_skill + 30
+                (characters[user_id][char_name]["skills"]["combat"][char_skill_name])=char_skill
+
+            elif char_skill_name in characters[user_id][char_name]["skills"]["social"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["social"][char_skill_name])
+                char_skill = char_skill + 30
+                (characters[user_id][char_name]["skills"]["social"][char_skill_name])=char_skill
+
+            elif char_skill_name in characters[user_id][char_name]["skills"]["classes"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["classes"][char_skill_name])
+                char_skill = char_skill + 30
+                (characters[user_id][char_name]["skills"]["classes"][char_skill_name])=char_skill
+
+            elif char_skill_name in characters[user_id][char_name]["skills"]["sports"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["sports"][char_skill_name])
+                char_skill = char_skill + 30
+                (characters[user_id][char_name]["skills"]["sports"][char_skill_name])=char_skill
+
+            elif char_skill_name in characters[user_id][char_name]["skills"]["arts and crafts"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["arts and crafts"][char_skill_name])
+                char_skill = char_skill + 30
+                (characters[user_id][char_name]["skills"]["arts and crafts"][char_skill_name])=char_skill
+
+            elif char_skill_name in characters[user_id][char_name]["skills"]["language"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["language"][char_skill_name])
+                char_skill = char_skill + 30
+                (characters[user_id][char_name]["skills"]["language"][char_skill_name])=char_skill
+
+            elif char_skill_name in characters[user_id][char_name]["skills"]["special"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["special"][char_skill_name])
+                char_skill = char_skill + 30
+                (characters[user_id][char_name]["skills"]["special"][char_skill_name])=char_skill
+        save_characters(characters)
+        msg = "Skills successfully assigned!"
+        return msg
+    else:
+        msg = "Not enough points left! Please enter fewer skills to assign points to."
+    return msg
 
 def assign_skill():
     return
