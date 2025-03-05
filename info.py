@@ -15,6 +15,7 @@ import math
 
 # info on what credit rating translates to
 
+# displays either a list of archetypes or the specific description that fits with the chosen archetype.
 def info_arche(archetype):
 
     match archetype:
