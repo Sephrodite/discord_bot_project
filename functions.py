@@ -212,6 +212,11 @@ def assign_skill(user_id, char_name, char_skill_name, amount):
             char_skill = char_skill + amount
             (characters[user_id][char_name]["skills"]["special"][char_skill_name])=char_skill
         save_characters(characters)
+        amount = str(amount)
+        char_skill_name = str(char_skill_name)
+        char_skill = str(char_skill)
+        points = str(points)
+
         msg = "You've succesfully assigned " + amount + " points to " + char_skill_name + ". The total skill is now " + char_skill + " points. You have " + points + " points left to assign."
         return msg
     else:

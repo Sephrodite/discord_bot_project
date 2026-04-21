@@ -141,11 +141,9 @@ async def assign(ctx, char_name:str, char_skill_name:str, amount: int):
      user_id = str(ctx.author.id)
      if char_skill_name == "wyrdness":
          msg = "You are not allowed to upgrade this skill."
-     try: 
-         msg = assign_skill(user_id, char_name, char_skill_name, amount)
-     except TypeError:
-         msg = "An error has occurred."
-     await ctx.send(f'msg')
+     else:
+        msg = assign_skill(user_id, char_name, char_skill_name, amount)
+     await ctx.send(f'{msg}')
 
 @bot.command()
 async def quickassign(ctx, char_name:str, *skills:str):

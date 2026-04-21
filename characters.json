@@ -1,13 +1,13 @@
 {
     "298490512128606223": {
         "Auguste Cavani": {
-            "points": 320,
+            "points": 202,
             "skills": {
                 "teleportation": 10,
                 "credit rating": 0,
                 "wyrdness": 0,
                 "deception": 10,
-                "flirting": 10,
+                "flirting": 33,
                 "persuasion": 15,
                 "survival": 5,
                 "disguise": 15,
@@ -21,7 +21,7 @@
                     "blood magic": 5,
                     "nature": 10,
                     "potions": 10,
-                    "enchantment": 10,
+                    "enchantment": 86,
                     "summoning": 5,
                     "witchcraft": 10,
                     "gifted magic": 1,
