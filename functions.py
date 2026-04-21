@@ -5,16 +5,16 @@ import random
 import json
 import math
 
-CHAR_FILE = "characters.json"
-DEFAULT = "reference.json"
+CHAR_FILE = os.getenv("CHAR_FILE", "characters.json")
+DEFAULT = os.getenv("REFERENCE_FILE", "reference.json")
 
-def load_characters(CHAR_FILE):
+def load_characters(char_file=CHAR_FILE):
     try:
-        with open('characters.json', 'r') as file:
+        with open(char_file, "r", encoding="utf-8") as file:
             characters = json.load(file)
             return characters
     except FileNotFoundError:
-         return {}
+        return {}
     
 def load_default(DEFAULT):
     try:
@@ -25,12 +25,9 @@ def load_default(DEFAULT):
         print("file not found")
         return
 
-def save_characters(characters):
-    try:
-        with open('characters.json', 'w') as file:
-            json.dump(characters, file, indent=4)
-    except FileNotFoundError:
-        return {}
+def save_characters(characters, char_file=CHAR_FILE):
+    with open(char_file, "w", encoding="utf-8") as file:
+        json.dump(characters, file, indent=4)
     
 def roll_default(char_skill, char_skill_name, characters, user_id, char_name):
     

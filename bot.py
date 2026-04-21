@@ -21,7 +21,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
-CHAR_FILE = "characters.json"
+CHAR_FILE = os.getenv("CHAR_FILE", "characters.json")
 
 @bot.event
 async def on_ready():
