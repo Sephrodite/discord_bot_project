@@ -1,57 +1,42 @@
 {
     "298490512128606223": {
         "Auguste Cavani": {
-            "group": "adult",
-            "archetype": "entertainer",
+            "points": 320,
             "skills": {
-                "apparition": 10,
-                "flying (brooms)": 20,
-                "flying (creatures)": 5,
+                "teleportation": 10,
                 "credit rating": 0,
-                "dark arts": 0,
+                "wyrdness": 0,
+                "deception": 10,
+                "flirting": 10,
+                "persuasion": 15,
                 "survival": 5,
                 "disguise": 15,
                 "stealth": 20,
-                "magigal theory": 15,
+                "lockpicking": 1,
+                "library use": 20,
                 "first aid": 30,
-                "enchanting": 5,
-                "job specialties": {
-                    "magizoology": 5,
-                    "dragonology": 1,
-                    "wand lore": 1,
-                    "magical law": 5,
-                    "cultural knowledge": 10,
-                    "magical architecture": 5,
-                    "curse breaking": 1,
-                    "specialty healing": 1
+                "magical theory": 15,
+                "magical": {
+                    "rituals": 5,
+                    "blood magic": 5,
+                    "nature": 10,
+                    "potions": 10,
+                    "enchantment": 10,
+                    "summoning": 5,
+                    "witchcraft": 10,
+                    "gifted magic": 1,
+                    "device": 5,
+                    "caster": 15,
+                    "rune": 10
                 },
                 "combat": {
                     "brawling": 20,
                     "dodge": 20,
-                    "duelling (offence)": 10,
-                    "duelling (defence)": 15
-                },
-                "classes": {
-                    "astronomy": 20,
-                    "charms": 20,
-                    "dada": 20,
-                    "herbology": 20,
-                    "hom": 20,
-                    "potions": 20,
-                    "transfigurations": 20,
-                    "arithmancy": 2,
-                    "comc": 2,
-                    "divination": 2,
-                    "muggle studies": 2,
-                    "ancient runes": 2,
-                    "alchemy": 1
+                    "offensive magic": 10,
+                    "defensive magic": 15
                 },
                 "sports": {
-                    "quidditch": 15,
-                    "wizard chess": 25,
-                    "gobstones": 10,
-                    "exploding snap": 10,
-                    "quodpod": 15
+                    "aetherball": 15
                 },
                 "arts and crafts": {
                     "any": 5
@@ -61,38 +46,224 @@
                     "other": 1
                 },
                 "special": {
-                    "wandless magic": 10,
-                    "non-verbal magic": 15,
-                    "occlumency": 5,
-                    "legillimency": 1
+                    "mind shielding": 5,
+                    "mind reading": 1
+                }
+            },
+            "checked skills": []
+        },
+        "\u00c5sne Lundr": {
+            "points": 320,
+            "skills": {
+                "teleportation": 10,
+                "credit rating": 0,
+                "wyrdness": 0,
+                "deception": 10,
+                "flirting": 10,
+                "persuasion": 15,
+                "survival": 5,
+                "disguise": 15,
+                "stealth": 30,
+                "lockpicking": 1,
+                "library use": 20,
+                "first aid": 30,
+                "magical theory": 15,
+                "magical": {
+                    "rituals": 5,
+                    "blood magic": 5,
+                    "nature": 10,
+                    "potions": 10,
+                    "enchantment": 10,
+                    "summoning": 5,
+                    "witchcraft": 10,
+                    "gifted magic": 1,
+                    "device": 5,
+                    "caster": 15,
+                    "rune": 10
+                },
+                "combat": {
+                    "brawling": 20,
+                    "dodge": 20,
+                    "offensive magic": 10,
+                    "defensive magic": 15
+                },
+                "sports": {
+                    "aetherball": 15
+                },
+                "arts and crafts": {
+                    "any": 5
+                },
+                "language": {
+                    "native": 60,
+                    "other": 1
+                },
+                "special": {
+                    "mind shielding": 5,
+                    "mind reading": 1
+                }
+            },
+            "checked skills": []
+        },
+        "Klio Vragneika": {
+            "points": 320,
+            "skills": {
+                "teleportation": 10,
+                "credit rating": 0,
+                "wyrdness": 0,
+                "deception": 10,
+                "flirting": 10,
+                "persuasion": 15,
+                "survival": 5,
+                "disguise": 15,
+                "stealth": 22,
+                "lockpicking": 1,
+                "library use": 20,
+                "first aid": 30,
+                "magical theory": 15,
+                "magical": {
+                    "rituals": 5,
+                    "blood magic": 5,
+                    "nature": 10,
+                    "potions": 10,
+                    "enchantment": 10,
+                    "summoning": 5,
+                    "witchcraft": 10,
+                    "gifted magic": 1,
+                    "device": 5,
+                    "caster": 15,
+                    "rune": 10
+                },
+                "combat": {
+                    "brawling": 20,
+                    "dodge": 20,
+                    "offensive magic": 10,
+                    "defensive magic": 15
+                },
+                "sports": {
+                    "aetherball": 15
+                },
+                "arts and crafts": {
+                    "any": 5
+                },
+                "language": {
+                    "native": 60,
+                    "other": 1
+                },
+                "special": {
+                    "mind shielding": 5,
+                    "mind reading": 1
+                }
+            },
+            "checked skills": []
+        }
+    },
+    "341419980560007169": {
+        "Godric Emerys": {
+            "points": 320,
+            "skills": {
+                "teleportation": 10,
+                "credit rating": 0,
+                "wyrdness": 0,
+                "deception": 10,
+                "flirting": 10,
+                "persuasion": 15,
+                "survival": 5,
+                "disguise": 15,
+                "stealth": 20,
+                "lockpicking": 1,
+                "library use": 20,
+                "first aid": 30,
+                "magical theory": 15,
+                "magical": {
+                    "rituals": 5,
+                    "blood magic": 5,
+                    "nature": 10,
+                    "potions": 10,
+                    "enchantment": 10,
+                    "summoning": 5,
+                    "witchcraft": 10,
+                    "gifted magic": 1,
+                    "device": 5,
+                    "caster": 15,
+                    "rune": 10
+                },
+                "combat": {
+                    "brawling": 20,
+                    "dodge": 20,
+                    "offensive magic": 10,
+                    "defensive magic": 15
+                },
+                "sports": {
+                    "aetherball": 15
+                },
+                "arts and crafts": {
+                    "any": 5
+                },
+                "language": {
+                    "native": 60,
+                    "other": 1
+                },
+                "special": {
+                    "mind shielding": 5,
+                    "mind reading": 1
                 }
             },
             "checked skills": [
-                "native"
+                "stealth"
             ]
-        },
-        "Serenity Cidonys": {
-            "group": "adult",
-            "archetype": "tactician",
-            "skills": {},
-            "checked skills": []
-        },
-        "Apollo Malfoy": {
-            "group": "student",
-            "archetype": "femme fatale",
-            "skills": {},
-            "checked skills": []
-        },
-        "Nimue Morganach": {
-            "group": "adult",
-            "archetype": "cold blooded",
-            "skills": {},
-            "checked skills": []
-        },
-        "Samantha Sterling": {
-            "group": "student",
-            "archetype": "explorer",
-            "skills": {},
+        }
+    },
+    "533287714330771466": {
+        "Christy Kemp": {
+            "points": 320,
+            "skills": {
+                "teleportation": 10,
+                "credit rating": 0,
+                "wyrdness": 0,
+                "deception": 10,
+                "flirting": 10,
+                "persuasion": 15,
+                "survival": 5,
+                "disguise": 15,
+                "stealth": 20,
+                "lockpicking": 1,
+                "library use": 20,
+                "first aid": 30,
+                "magical theory": 15,
+                "magical": {
+                    "rituals": 5,
+                    "blood magic": 5,
+                    "nature": 10,
+                    "potions": 10,
+                    "enchantment": 10,
+                    "summoning": 5,
+                    "witchcraft": 10,
+                    "gifted magic": 1,
+                    "device": 5,
+                    "caster": 15,
+                    "rune": 10
+                },
+                "combat": {
+                    "brawling": 20,
+                    "dodge": 20,
+                    "offensive magic": 10,
+                    "defensive magic": 15
+                },
+                "sports": {
+                    "aetherball": 15
+                },
+                "arts and crafts": {
+                    "any": 5
+                },
+                "language": {
+                    "native": 60,
+                    "other": 1
+                },
+                "special": {
+                    "mind shielding": 5,
+                    "mind reading": 1
+                }
+            },
             "checked skills": []
         }
     }

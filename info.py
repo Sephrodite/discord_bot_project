@@ -7,8 +7,6 @@ import math
 
 # info on skills
 
-# info on adult vs student
-
 # info on learning skills and leveling up
 
 # info on what numbers mean

@@ -11,10 +11,9 @@ from functions import load_characters
 from functions import save_characters
 from functions import roll_default
 from functions import level_up
-from info import info_arche
 from functions import add_default_skills
-from functions import add_archetype_skills
 from functions import quick_assign
+from functions import assign_skill
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -52,21 +51,18 @@ async def roll(ctx, dice: str):
     await ctx.send(f'You rolled a total of {dice_number} dice, of which the individual rolls were {result}. The total is: {total}')
 
 @bot.command()
-async def create(ctx, name: str, group: str, archetype: str):
+async def create(ctx, name: str):
     try:
         characters = load_characters(CHAR_FILE)
         user_id = str(ctx.author.id)
         char_name = name
-        group = group.lower()
-        archetype = archetype.lower()
 
         if user_id not in characters:
             characters[user_id] = {}
             save_characters(characters)
 
         if char_name not in characters[user_id]:
-            add_default_skills(user_id, char_name, group, archetype)
-            add_archetype_skills(user_id, char_name, group, archetype)
+            add_default_skills(user_id, char_name)
 
             await ctx.send(f'Character {name} successfully added to {ctx.author.display_name}\'s character list!')
         else:
@@ -88,36 +84,22 @@ async def listchars(ctx):
     await ctx.send(f'{msg}')
 
 @bot.command()
-async def charbase(ctx, char_name:str):
-    characters = load_characters(CHAR_FILE)
-    user_id = str(ctx.author.id)
-
-    if user_id in characters:
-        if char_name in characters[user_id]:
-                char_group = characters[user_id][char_name]["group"]
-                char_arch = characters[user_id][char_name]["archetype"]
-        msg = "### " + char_name + "\n" + "Group: " + char_group + "\n" + "Archetype: " + char_arch
-    await ctx.send(f'{msg}')
-
-@bot.command()
 async def skill(ctx, char_name:str, char_skill_name:str):
     characters = load_characters(CHAR_FILE)
     user_id = str(ctx.author.id)
     char_skill_name = char_skill_name.lower()
 
+#Iterates over the entire skill array for a character and sets a message tied to the skill in question.
     if user_id in characters:
         if char_name in characters[user_id]:
             if char_skill_name in characters[user_id][char_name]["skills"]:
                 char_skill = int(characters[user_id][char_name]["skills"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
-            elif char_skill_name in characters[user_id][char_name]["skills"]["job specialties"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["job specialties"][char_skill_name])
+            elif char_skill_name in characters[user_id][char_name]["skills"]["magical"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["magical"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             elif char_skill_name in characters[user_id][char_name]["skills"]["combat"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["combat"][char_skill_name])
-                msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
-            elif char_skill_name in characters[user_id][char_name]["skills"]["classes"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["classes"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             elif char_skill_name in characters[user_id][char_name]["skills"]["sports"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["sports"][char_skill_name])
@@ -148,25 +130,22 @@ async def lvlup(ctx):
         await ctx.send(f'Level up successful!')
     else:
         await ctx.send(f'Unauthorised action. Seph will run a level up once a month!')
-        
-@bot.command()
-async def infoarchetype(ctx, archetype:str):
-    archetype = archetype.lower()
-    if archetype == "info":
-        msg = "These are the various archetypes to choose from. They have 100 skill points divided between the associated skills. Some have more associated skills but they have less points per skill compared to those that are already more specialised.\n\nList of available archetypes: \n- adventurer \n- beefcake \n- bon vivant \n- cold blooded \n- dreamer \n- egghead \n- explorer \n- le fatale \n- grease monkey \n- hard boiled \n- harlequin \n- hunter \n- mystic \n- outsider \n- rogue \n- scholar \n- seeker \n- sidekick \n- steadfast \n- swashbuckler \n- thrill seeker \n- two fisted"
-    else:
-        msg = info_arche(archetype)
-    
-    await ctx.send(f'{msg}')
 
 @bot.command()
-async def tester(ctx, name: str, group: str, archetype: str):
+async def tester(ctx, name: str):
     user_id = str(ctx.author.id)
     char_name = name
     
 @bot.command()
-async def assign(ctx, char_name:str, origin: str, char_skill:str, amount: int):
-     await ctx.send(f'in progress')
+async def assign(ctx, char_name:str, char_skill_name:str, amount: int):
+     user_id = str(ctx.author.id)
+     if char_skill_name == "wyrdness":
+         msg = "You are not allowed to upgrade this skill."
+     try: 
+         msg = assign_skill(user_id, char_name, char_skill_name, amount)
+     except TypeError:
+         msg = "An error has occurred."
+     await ctx.send(f'msg')
 
 @bot.command()
 async def quickassign(ctx, char_name:str, *skills:str):
@@ -179,5 +158,6 @@ async def quickassign(ctx, char_name:str, *skills:str):
 if TOKEN is None:
 	print("ERROR: DISCORD_BOT_TOKEN not found in environment variables")
 else:
-	bot.run(TOKEN)
+    print(f"TOKEN value: {repr(TOKEN)}")
+    bot.run(TOKEN)
 
