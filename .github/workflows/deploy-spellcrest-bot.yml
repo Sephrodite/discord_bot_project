@@ -1,0 +1,25 @@
+name: Deploy SpellCrest Bot
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-spellcrest-bot
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to SpellCrest VM over SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SPELLCREST_VM_HOST }}
+          username: ${{ secrets.SPELLCREST_VM_USER }}
+          key: ${{ secrets.SPELLCREST_VM_SSH_KEY }}
+          script: |
+            ~/deploy-spellcrest-bot.sh
