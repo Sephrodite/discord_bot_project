@@ -24,8 +24,13 @@ jobs:
           SSH_KEY: ${{ secrets.SPELLCREST_VM_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/spellcrest_key
+          printf '%s\n' "$SSH_KEY" | tr -d '\r' > ~/.ssh/spellcrest_key
           chmod 600 ~/.ssh/spellcrest_key
+
+      - name: Show derived public key from private key
+        shell: bash
+        run: |
+          ssh-keygen -y -f ~/.ssh/spellcrest_key
 
       - name: Add VM to known_hosts
         shell: bash
