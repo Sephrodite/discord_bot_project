@@ -35,7 +35,7 @@ jobs:
       - name: Add VM to known_hosts
         shell: bash
         run: |
-          ssh-keyscan -H ${{ secrets.SPELLCREST_VM_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+          ssh-keyscan -H 34.19.96.154 >> ~/.ssh/known_hosts 2>/dev/null
 
       - name: Debug SSH setup
         shell: bash
@@ -59,10 +59,10 @@ jobs:
       - name: Test SSH connection
         shell: bash
         run: |
-          ssh -o IdentitiesOnly=yes \
+          ssh -vvv -o IdentitiesOnly=yes \
               -o StrictHostKeyChecking=no \
               -i ~/.ssh/spellcrest_key \
-              ${{ secrets.SPELLCREST_VM_USER }}@${{ secrets.SPELLCREST_VM_HOST }} \
+              thomashillebrink@34.19.96.154 \
               "whoami && hostname"
 
       - name: Deploy to SpellCrest VM
@@ -71,5 +71,5 @@ jobs:
           ssh -o IdentitiesOnly=yes \
               -o StrictHostKeyChecking=no \
               -i ~/.ssh/spellcrest_key \
-              ${{ secrets.SPELLCREST_VM_USER }}@${{ secrets.SPELLCREST_VM_HOST }} \
+              thomashillebrink@34.19.96.154 \
               "~/deploy-spellcrest-bot.sh"
