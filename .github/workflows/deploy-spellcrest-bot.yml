@@ -15,11 +15,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to SpellCrest VM over SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SPELLCREST_VM_HOST }}
-          username: ${{ secrets.SPELLCREST_VM_USER }}
-          key: ${{ secrets.SPELLCREST_VM_SSH_KEY }}
-          script: |
-            ~/deploy-spellcrest-bot.sh
+      - name: Write SSH key
+        shell: bash
+        run: |
+          cat > spellcrest_key <<'EOF'
+          ${{ secrets.SPELLCREST_VM_SSH_KEY }}
+          EOF
+          chmod 600 spellcrest_key
+
+      - name: Check key file was written
+        shell: bash
+        run: |
+          ls -l spellcrest_key
+          head -n 1 spellcrest_key
+          tail -n 1 spellcrest_key
+
+      - name: Add VM to known_hosts
+        shell: bash
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SPELLCREST_VM_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Test SSH connection
+        shell: bash
+        run: |
+          ssh -i spellcrest_key \
+            ${{ secrets.SPELLCREST_VM_USER }}@${{ secrets.SPELLCREST_VM_HOST }} \
+            "whoami && hostname"
+
+      - name: Deploy to SpellCrest VM
+        shell: bash
+        run: |
+          ssh -i spellcrest_key \
+            ${{ secrets.SPELLCREST_VM_USER }}@${{ secrets.SPELLCREST_VM_HOST }} \
+            "~/deploy-spellcrest-bot.sh"
