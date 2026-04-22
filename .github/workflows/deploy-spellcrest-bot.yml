@@ -15,37 +15,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Write SSH key
         shell: bash
         env:
           SSH_KEY: ${{ secrets.SPELLCREST_VM_SSH_KEY }}
         run: |
-          printf '%s\n' "$SSH_KEY" | tr -d '\r' > spellcrest_key
-          chmod 600 spellcrest_key
-
-      - name: Check key file shape
-        shell: bash
-        run: |
-          ls -l spellcrest_key
-          head -n 1 spellcrest_key
-          tail -n 1 spellcrest_key
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/spellcrest_key
+          chmod 600 ~/.ssh/spellcrest_key
 
       - name: Add VM to known_hosts
         shell: bash
         run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.SPELLCREST_VM_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.SPELLCREST_VM_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
 
       - name: Test SSH connection
         shell: bash
         run: |
-          ssh -o IdentitiesOnly=yes -i spellcrest_key \
-            ${{ secrets.SPELLCREST_VM_USER }}@${{ secrets.SPELLCREST_VM_HOST }} \
-            "whoami && hostname"
+          ssh -o IdentitiesOnly=yes \
+              -o StrictHostKeyChecking=no \
+              -i ~/.ssh/spellcrest_key \
+              ${{ secrets.SPELLCREST_VM_USER }}@${{ secrets.SPELLCREST_VM_HOST }} \
+              "whoami && hostname"
 
       - name: Deploy to SpellCrest VM
         shell: bash
         run: |
-          ssh -o IdentitiesOnly=yes -i spellcrest_key \
-            ${{ secrets.SPELLCREST_VM_USER }}@${{ secrets.SPELLCREST_VM_HOST }} \
-            "~/deploy-spellcrest-bot.sh"
+          ssh -o IdentitiesOnly=yes \
+              -o StrictHostKeyChecking=no \
+              -i ~/.ssh/spellcrest_key \
+              ${{ secrets.SPELLCREST_VM_USER }}@${{ secrets.SPELLCREST_VM_HOST }} \
+              "~/deploy-spellcrest-bot.sh"
