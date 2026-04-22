@@ -32,6 +32,25 @@ jobs:
         run: |
           ssh-keyscan -H ${{ secrets.SPELLCREST_VM_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
 
+      - name: Debug SSH setup
+        shell: bash
+        run: |
+          echo "SSH key file exists:"
+          ls -la ~/.ssh/spellcrest_key 2>&1 || echo "Key file does not exist"
+          echo ""
+          echo "SSH key file size:"
+          wc -c ~/.ssh/spellcrest_key 2>&1 || echo "Could not check size"
+          echo ""
+          echo "SSH key first and last lines:"
+          head -1 ~/.ssh/spellcrest_key 2>&1 || echo "Could not read first line"
+          tail -1 ~/.ssh/spellcrest_key 2>&1 || echo "Could not read last line"
+          echo ""
+          echo "SSH_KEY variable length: ${#SSH_KEY}"
+          echo ""
+          echo "Attempting verbose SSH connection:"
+        env:
+          SSH_KEY: ${{ secrets.SPELLCREST_VM_SSH_KEY }}
+
       - name: Test SSH connection
         shell: bash
         run: |
