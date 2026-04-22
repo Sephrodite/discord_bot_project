@@ -17,13 +17,13 @@ jobs:
     steps:
       - name: Write SSH key
         shell: bash
+        env:
+          SSH_KEY: ${{ secrets.SPELLCREST_VM_SSH_KEY }}
         run: |
-          cat > spellcrest_key <<'EOF'
-          ${{ secrets.SPELLCREST_VM_SSH_KEY }}
-          EOF
+          printf '%s\n' "$SSH_KEY" | tr -d '\r' > spellcrest_key
           chmod 600 spellcrest_key
 
-      - name: Check key file was written
+      - name: Check key file shape
         shell: bash
         run: |
           ls -l spellcrest_key
@@ -39,13 +39,13 @@ jobs:
       - name: Test SSH connection
         shell: bash
         run: |
-          ssh -i spellcrest_key \
+          ssh -o IdentitiesOnly=yes -i spellcrest_key \
             ${{ secrets.SPELLCREST_VM_USER }}@${{ secrets.SPELLCREST_VM_HOST }} \
             "whoami && hostname"
 
       - name: Deploy to SpellCrest VM
         shell: bash
         run: |
-          ssh -i spellcrest_key \
+          ssh -o IdentitiesOnly=yes -i spellcrest_key \
             ${{ secrets.SPELLCREST_VM_USER }}@${{ secrets.SPELLCREST_VM_HOST }} \
             "~/deploy-spellcrest-bot.sh"
