@@ -106,7 +106,7 @@ def add_default_skills(user_id, char_name):
     characters = load_characters(CHAR_FILE)
     default = load_default(DEFAULT)
     skills = default["skills"]
-    characters[user_id][char_name] = {"job points": 320, "skills":skills, "checked skills": []}
+    characters[user_id][char_name] = {"points": 320, "skills":skills, "checked skills": []}
     save_characters(characters)
 
 def quick_assign(user_id, char_name, skills):
