@@ -153,6 +153,36 @@ async def quickassign(ctx, char_name:str, *skills:str):
     await ctx.send(f'{msg}')
 
 
+# --- Slash command with choices ---
+# - how to make a slash command
+# - how to offer fixed choices
+# - how to accept a number
+# - how to reply with the selected input
+
+from discord import app_commands
+
+
+@bot.tree.command(name="foo", description="Example slash command with choices and a number.")
+@app_commands.describe(
+    option="Pick one of the example options.",
+    amount="Enter any number."
+)
+@app_commands.choices(option=[
+    app_commands.Choice(name="Alpha", value="alpha"),
+    app_commands.Choice(name="Beta", value="beta"),
+    app_commands.Choice(name="Charlie", value="charlie"),
+    app_commands.Choice(name="Delta", value="delta"),
+])
+async def foo(
+    interaction: discord.Interaction,
+    option: app_commands.Choice[str],
+    amount: int
+):
+    await interaction.response.send_message(
+        f"You selected option='{option.value}' and amount={amount}."
+    )
+
+
 if TOKEN is None:
 	print("ERROR: DISCORD_BOT_TOKEN not found in environment variables")
 else:
