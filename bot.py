@@ -5,6 +5,7 @@ import os
 import discord
 from discord.ext import commands
 from discord import app_commands
+import traceback
 import random
 import json
 
@@ -153,20 +154,12 @@ async def assign(ctx, char_name: str, char_skill_name: str, amount: int):
 
     try:
         msg = assign_skill(user_id, char_name, char_skill_name, amount)
-    except KeyError as error:
-        msg = (
-            f"Something was not found: `{error}`.\n"
-            "Please check that the character name and skill name are spelled exactly as stored."
-        )
-    except TypeError as error:
-        msg = (
-            "Something had the wrong data type while assigning the skill.\n"
-            f"Technical detail: `{error}`"
-        )
     except Exception as error:
+        traceback.print_exc()
         msg = (
-            "Something went wrong while assigning the skill.\n"
-            f"Technical detail: `{type(error).__name__}: {error}`"
+            "Could not assign that skill.\n"
+            "Check that the character name, skill name, and amount are correct.\n"
+            f"Error: `{type(error).__name__}: {error}`"
         )
 
     await ctx.send(msg)
