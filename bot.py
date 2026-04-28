@@ -32,8 +32,19 @@ CHAR_FILE = os.getenv("CHAR_FILE", "characters.json")
 
 @bot.event
 async def on_ready():
-    await bot.tree.sync()
-    print(f'Logged in as {bot.user}')
+    dev_guild_id = os.getenv("DEV_GUILD_ID")
+
+    if dev_guild_id:
+        guild = discord.Object(id=int(dev_guild_id))
+        bot.tree.copy_global_to(guild=guild)
+        synced = await bot.tree.sync(guild=guild)
+
+        print(f"Synced {len(synced)} slash command(s) to guild {dev_guild_id}.")
+    else:
+        synced = await bot.tree.sync()
+        print(f"Synced {len(synced)} global slash command(s).")
+
+    print(f"Logged in as {bot.user}")
 
 @bot.command()
 async def hello(ctx):
