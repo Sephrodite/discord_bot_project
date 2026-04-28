@@ -25,7 +25,8 @@ CHAR_FILE = os.getenv("CHAR_FILE", "characters.json")
 
 @bot.event
 async def on_ready():
-	print(f'Logged in as {bot.user}')
+    await bot.tree.sync()
+    print(f'Logged in as {bot.user}')
 
 @bot.command()
 async def hello(ctx):
