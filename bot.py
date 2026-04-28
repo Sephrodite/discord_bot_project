@@ -4,6 +4,7 @@ load_dotenv()
 import os
 import discord
 from discord.ext import commands
+from discord import app_commands
 import random
 import json
 
@@ -14,6 +15,11 @@ from functions import level_up
 from functions import add_default_skills
 from functions import quick_assign
 from functions import assign_skill
+from examples import (
+    get_example_list_a_values,
+    get_example_list_b_values,
+    filter_autocomplete_values,
+)
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -154,14 +160,6 @@ async def quickassign(ctx, char_name:str, *skills:str):
     await ctx.send(f'{msg}')
 
 
-# --- Slash command with choices ---
-# - how to make a slash command
-# - how to offer fixed choices
-# - how to accept a number
-# - how to reply with the selected input
-
-from discord import app_commands
-
 
 @bot.tree.command(name="foo", description="Example slash command with choices and a number.")
 @app_commands.describe(
@@ -184,9 +182,58 @@ async def foo(
     )
 
 
+
+@bot.tree.command(
+    name="bar",
+    description="Example command with dynamic autocomplete from two files."
+)
+@app_commands.describe(
+    item_a="Start typing to pick a value from List A.",
+    item_b="Start typing to pick a value from List B.",
+)
+async def bar(
+    interaction: discord.Interaction,
+    item_a: str,
+    item_b: str,
+):
+    await interaction.response.send_message(
+        f"You selected item_a='{item_a}' and item_b='{item_b}'."
+    )
+
+
+@bar.autocomplete("item_a")
+async def bar_item_a_autocomplete(
+    interaction: discord.Interaction,
+    current: str,
+):
+    values = get_example_list_a_values()
+    filtered_values = filter_autocomplete_values(values, current)
+
+    return [
+        app_commands.Choice(name=value, value=value)
+        for value in filtered_values
+    ]
+
+
+@bar.autocomplete("item_b")
+async def bar_item_b_autocomplete(
+    interaction: discord.Interaction,
+    current: str,
+):
+    values = get_example_list_b_values()
+    filtered_values = filter_autocomplete_values(values, current)
+
+    return [
+        app_commands.Choice(name=value, value=value)
+        for value in filtered_values
+    ]
+
 if TOKEN is None:
 	print("ERROR: DISCORD_BOT_TOKEN not found in environment variables")
 else:
     print(f"TOKEN value: {repr(TOKEN)}")
     bot.run(TOKEN)
+
+
+
 

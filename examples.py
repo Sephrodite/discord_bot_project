@@ -13,63 +13,66 @@ from datetime import datetime, timezone
 # Example 1: Loading dynamic options from another JSON file
 # ---------------------------------------------------------------------------
 
-EXAMPLE_OPTIONS_FILE = os.getenv("EXAMPLE_OPTIONS_FILE", "example_options.json")
+# ---------------------------------------------------------------------------
+# Example: Loading autocomplete values from separate JSON files
+# ---------------------------------------------------------------------------
+
+EXAMPLE_LIST_A_FILE = os.getenv("EXAMPLE_LIST_A_FILE", "example_list_a.json")
+EXAMPLE_LIST_B_FILE = os.getenv("EXAMPLE_LIST_B_FILE", "example_list_b.json")
 
 
-def load_example_options() -> dict:
+def load_string_list(file_path: str) -> list[str]:
     """
-    Load dynamic option data from a JSON file.
+    Load a simple JSON file that contains a list of strings.
 
-    This demonstrates the same pattern as:
-    - loading character names from characters.json
-    - loading skill names from skills.json
-
-    The exact file structure can be changed later.
-    """
-
-    if not os.path.exists(EXAMPLE_OPTIONS_FILE):
-        return {
-            "characters": [],
-            "skills": [],
-        }
-
-    with open(EXAMPLE_OPTIONS_FILE, "r", encoding="utf-8") as file:
-        return json.load(file)
-
-
-def get_example_character_names() -> list[str]:
-    """
-    Return character names from the example options file.
+    This pattern is useful when a command option should autocomplete
+    from data stored outside the command itself.
     """
 
-    data = load_example_options()
-    return data.get("characters", [])
+    if not os.path.exists(file_path):
+        return []
+
+    with open(file_path, "r", encoding="utf-8") as file:
+        data = json.load(file)
+
+    if not isinstance(data, list):
+        return []
+
+    return [str(item) for item in data]
 
 
-def get_example_skill_names() -> list[str]:
+def get_example_list_a_values() -> list[str]:
     """
-    Return skill names from the example options file.
+    Load values from the first example list file.
     """
 
-    data = load_example_options()
-    return data.get("skills", [])
+    return load_string_list(EXAMPLE_LIST_A_FILE)
 
 
-def filter_options(options: list[str], current: str, limit: int = 25) -> list[str]:
+def get_example_list_b_values() -> list[str]:
     """
-    Filter a list of strings based on what the user has typed.
+    Load values from the second example list file.
+    """
 
-    Discord autocomplete can return up to 25 choices.
+    return load_string_list(EXAMPLE_LIST_B_FILE)
+
+
+def filter_autocomplete_values(values: list[str], current: str, limit: int = 25) -> list[str]:
+    """
+    Filter autocomplete values based on what the user has typed.
+
+    Discord autocomplete can return at most 25 choices, so we always limit
+    the result.
     """
 
     current = current.lower().strip()
 
     if not current:
-        return options[:limit]
+        return values[:limit]
 
     matches = [
-        option for option in options
-        if current in option.lower()
+        value for value in values
+        if current in value.lower()
     ]
 
     return matches[:limit]
