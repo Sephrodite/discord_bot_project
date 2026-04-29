@@ -109,68 +109,6 @@ def add_default_skills(user_id, char_name):
     characters[user_id][char_name] = {"points": 320, "skills":skills, "checked skills": []}
     save_characters(characters)
 
-def quick_assign(user_id, char_name, skills):
-    characters = load_characters(CHAR_FILE)
-    points = int(characters[user_id][char_name]["points"]) 
-    skill_amount = len(skills)*30
-    
-    if points >= skill_amount:
-        for x in range(len(skills)) :
-            char_skill_name = str(skills[x])
-
-            print(char_skill_name)
-            if   point_job >= 30:
-                point_job = point_job - 30
-                print(point_job)
-                (characters[user_id][char_name]["job points"])=point_job
-                save_characters(characters)
-            elif point_pers >= 30:
-                point_pers = point_pers - 30
-                print(point_pers)
-                (characters[user_id][char_name]["personal interest"])=point_pers
-                save_characters(characters)
-
-            if char_skill_name in characters[user_id][char_name]["skills"]:
-                char_skill = int(characters[user_id][char_name]["skills"][char_skill_name])
-                char_skill = char_skill + 30
-                (characters[user_id][char_name]["skills"][char_skill_name])=char_skill
-
-            elif char_skill_name in characters[user_id][char_name]["skills"]["magical"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["magical"][char_skill_name])
-                char_skill = char_skill + 30
-                (characters[user_id][char_name]["skills"]["magical"][char_skill_name])=char_skill
-
-            elif char_skill_name in characters[user_id][char_name]["skills"]["combat"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["combat"][char_skill_name])
-                char_skill = char_skill + 30
-                (characters[user_id][char_name]["skills"]["combat"][char_skill_name])=char_skill
-
-            elif char_skill_name in characters[user_id][char_name]["skills"]["sports"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["sports"][char_skill_name])
-                char_skill = char_skill + 30
-                (characters[user_id][char_name]["skills"]["sports"][char_skill_name])=char_skill
-
-            elif char_skill_name in characters[user_id][char_name]["skills"]["arts and crafts"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["arts and crafts"][char_skill_name])
-                char_skill = char_skill + 30
-                (characters[user_id][char_name]["skills"]["arts and crafts"][char_skill_name])=char_skill
-
-            elif char_skill_name in characters[user_id][char_name]["skills"]["language"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["language"][char_skill_name])
-                char_skill = char_skill + 30
-                (characters[user_id][char_name]["skills"]["language"][char_skill_name])=char_skill
-
-            elif char_skill_name in characters[user_id][char_name]["skills"]["special"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["special"][char_skill_name])
-                char_skill = char_skill + 30
-                (characters[user_id][char_name]["skills"]["special"][char_skill_name])=char_skill
-        save_characters(characters)
-        msg = "Skills successfully assigned!"
-        return msg
-    else:
-        msg = "Not enough points left! Please enter fewer skills to assign points to."
-    return msg
-
 def assign_skill(user_id, char_name, char_skill_name, amount):
     characters = load_characters(CHAR_FILE)
     points = int(characters[user_id][char_name]["points"]) 
@@ -217,7 +155,7 @@ def assign_skill(user_id, char_name, char_skill_name, amount):
         msg = "You've succesfully assigned " + amount + " points to " + char_skill_name + ". The total skill is now " + char_skill + " points. You have " + points + " points left to assign."
         return msg
     else:
-        msg = "Not enough points left! Please enter fewer skills to assign points to."
+        msg = "Not enough points left! Please enter fewer points to assign."
     return msg
 
 
