@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 import random
 import json
+import traceback
 import math
 
 CHAR_FILE = os.getenv("CHAR_FILE", "characters.json")
@@ -55,44 +56,53 @@ def level_up():
             for x in range(len(characters[user_id][char_name]["checked skills"])) :
                 char_skill_name = characters[user_id][char_name]["checked skills"][x]
                 print(char_skill_name)  
+                try:
+                    if char_skill_name in characters[user_id][char_name]["skills"]:
+                        char_skill = int(characters[user_id][char_name]["skills"][char_skill_name])
+                        char_skill = roll_up(char_skill)
+                        (characters[user_id][char_name]["skills"][char_skill_name])=char_skill
 
-                if char_skill_name in characters[user_id][char_name]["skills"]:
-                    char_skill = int(characters[user_id][char_name]["skills"][char_skill_name])
-                    char_skill = roll_up(char_skill)
-                    (characters[user_id][char_name]["skills"][char_skill_name])=char_skill
+                    elif char_skill_name in characters[user_id][char_name]["skills"]["magical"]:
+                        char_skill = int(characters[user_id][char_name]["skills"]["magical"][char_skill_name])
+                        char_skill = roll_up(char_skill)
+                        (characters[user_id][char_name]["skills"]["magical"][char_skill_name])=char_skill
 
-                elif char_skill_name in characters[user_id][char_name]["skills"]["magical"]:
-                    char_skill = int(characters[user_id][char_name]["skills"]["magical"][char_skill_name])
-                    char_skill = roll_up(char_skill)
-                    (characters[user_id][char_name]["skills"]["magical"][char_skill_name])=char_skill
+                    elif char_skill_name in characters[user_id][char_name]["skills"]["combat"]:
+                        char_skill = int(characters[user_id][char_name]["skills"]["combat"][char_skill_name])
+                        char_skill = roll_up(char_skill)
+                        (characters[user_id][char_name]["skills"]["combat"][char_skill_name])=char_skill
 
-                elif char_skill_name in characters[user_id][char_name]["skills"]["combat"]:
-                    char_skill = int(characters[user_id][char_name]["skills"]["combat"][char_skill_name])
-                    char_skill = roll_up(char_skill)
-                    (characters[user_id][char_name]["skills"]["combat"][char_skill_name])=char_skill
+                    elif char_skill_name in characters[user_id][char_name]["skills"]["sports"]:
+                        char_skill = int(characters[user_id][char_name]["skills"]["sports"][char_skill_name])
+                        char_skill = roll_up(char_skill)
+                        (characters[user_id][char_name]["skills"]["sports"][char_skill_name])=char_skill
 
-                elif char_skill_name in characters[user_id][char_name]["skills"]["sports"]:
-                    char_skill = int(characters[user_id][char_name]["skills"]["sports"][char_skill_name])
-                    char_skill = roll_up(char_skill)
-                    (characters[user_id][char_name]["skills"]["sports"][char_skill_name])=char_skill
+                    elif char_skill_name in characters[user_id][char_name]["skills"]["arts and crafts"]:
+                        char_skill = int(characters[user_id][char_name]["skills"]["arts and crafts"][char_skill_name])
+                        char_skill = roll_up(char_skill)
+                        (characters[user_id][char_name]["skills"]["arts and crafts"][char_skill_name])=char_skill
 
-                elif char_skill_name in characters[user_id][char_name]["skills"]["arts and crafts"]:
-                    char_skill = int(characters[user_id][char_name]["skills"]["arts and crafts"][char_skill_name])
-                    char_skill = roll_up(char_skill)
-                    (characters[user_id][char_name]["skills"]["arts and crafts"][char_skill_name])=char_skill
+                    elif char_skill_name in characters[user_id][char_name]["skills"]["language"]:
+                        char_skill = int(characters[user_id][char_name]["skills"]["language"][char_skill_name])
+                        char_skill = roll_up(char_skill)
+                        (characters[user_id][char_name]["skills"]["language"][char_skill_name])=char_skill
 
-                elif char_skill_name in characters[user_id][char_name]["skills"]["language"]:
-                    char_skill = int(characters[user_id][char_name]["skills"]["language"][char_skill_name])
-                    char_skill = roll_up(char_skill)
-                    (characters[user_id][char_name]["skills"]["language"][char_skill_name])=char_skill
-
-                elif char_skill_name in characters[user_id][char_name]["skills"]["special"]:
-                    char_skill = int(characters[user_id][char_name]["skills"]["special"][char_skill_name])
-                    char_skill = roll_up(char_skill)
-                    (characters[user_id][char_name]["skills"]["special"][char_skill_name])=char_skill
+                    elif char_skill_name in characters[user_id][char_name]["skills"]["special"]:
+                        char_skill = int(characters[user_id][char_name]["skills"]["special"][char_skill_name])
+                        char_skill = roll_up(char_skill)
+                        (characters[user_id][char_name]["skills"]["special"][char_skill_name])=char_skill
                     
-                (characters[user_id][char_name])["checked skills"]=[]
-                save_characters(characters)
+                    
+                except Exception as error:
+                    traceback.print_exc()
+                    msg = (
+                        "Could not assign that skill.\n"
+                        "Check that the character name, skill name, and amount are correct.\n"
+                        f"Error: `{type(error).__name__}: {error}`"
+                    )
+        (characters[user_id][char_name])["checked skills"]=[]
+        save_characters(characters)
+        
                     
 def roll_up(char_skill):
     char_skill = int(char_skill)
