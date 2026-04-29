@@ -14,7 +14,6 @@ from functions import save_characters
 from functions import roll_default
 from functions import level_up
 from functions import add_default_skills
-from functions import quick_assign
 from functions import assign_skill
 from examples import (
     get_example_list_a_values,
@@ -175,13 +174,6 @@ async def assign(ctx, char_name: str, char_skill_name: str, amount: int):
         )
 
     await ctx.send(msg)
-
-@bot.command()
-async def quickassign(ctx, char_name:str, *skills:str):
-    user_id = str(ctx.author.id)
-    print(skills)
-    msg = quick_assign(user_id, char_name, skills)
-    await ctx.send(f'{msg}')
 
 
 
