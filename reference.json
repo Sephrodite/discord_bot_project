@@ -1,6 +1,5 @@
 {
-    "job points": 250,
-    "personal interest": 120,
+    "points": 320,
     "skills": {
         "teleportation": 10,
         "credit rating": 0,
@@ -35,7 +34,8 @@
             "defensive magic": 15
         },
         "sports": {
-            "aetherball": 15
+            "aetherball": 15,
+            "pegasus racing": 10
         },
         "arts and crafts": {
             "any": 5
