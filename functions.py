@@ -114,38 +114,48 @@ def assign_skill(user_id, char_name, char_skill_name, amount):
     points = int(characters[user_id][char_name]["points"]) 
     
     if points >= amount:
-        points = points - amount
-        print(points)
-        (characters[user_id][char_name]["points"])=points
-        save_characters(characters)
         if char_skill_name in characters[user_id][char_name]["skills"]:
             char_skill = int(characters[user_id][char_name]["skills"][char_skill_name])
             char_skill = char_skill + amount
             (characters[user_id][char_name]["skills"][char_skill_name])=char_skill
+            points = points - amount
+            (characters[user_id][char_name]["points"])=points
         elif char_skill_name in characters[user_id][char_name]["skills"]["magical"]:
             char_skill = int(characters[user_id][char_name]["skills"]["magical"][char_skill_name])
             char_skill = char_skill + amount
             (characters[user_id][char_name]["skills"]["magical"][char_skill_name])=char_skill
+            points = points - amount
+            (characters[user_id][char_name]["points"])=points
         elif char_skill_name in characters[user_id][char_name]["skills"]["combat"]:
             char_skill = int(characters[user_id][char_name]["skills"]["combat"][char_skill_name])
             char_skill = char_skill + amount
             (characters[user_id][char_name]["skills"]["combat"][char_skill_name])=char_skill
+            points = points - amount
+            (characters[user_id][char_name]["points"])=points
         elif char_skill_name in characters[user_id][char_name]["skills"]["sports"]:
             char_skill = int(characters[user_id][char_name]["skills"]["sports"][char_skill_name])
             char_skill = char_skill + amount
             (characters[user_id][char_name]["skills"]["sports"][char_skill_name])=char_skill
+            points = points - amount
+            (characters[user_id][char_name]["points"])=points
         elif char_skill_name in characters[user_id][char_name]["skills"]["arts and crafts"]:
             char_skill = int(characters[user_id][char_name]["skills"]["arts and crafts"][char_skill_name])
             char_skill = char_skill + amount
             (characters[user_id][char_name]["skills"]["arts and crafts"][char_skill_name])=char_skill
+            points = points - amount
+            (characters[user_id][char_name]["points"])=points
         elif char_skill_name in characters[user_id][char_name]["skills"]["language"]:
             char_skill = int(characters[user_id][char_name]["skills"]["language"][char_skill_name])
             char_skill = char_skill + amount
             (characters[user_id][char_name]["skills"]["language"][char_skill_name])=char_skill
+            points = points - amount
+            (characters[user_id][char_name]["points"])=points
         elif char_skill_name in characters[user_id][char_name]["skills"]["special"]:
             char_skill = int(characters[user_id][char_name]["skills"]["special"][char_skill_name])
             char_skill = char_skill + amount
             (characters[user_id][char_name]["skills"]["special"][char_skill_name])=char_skill
+            points = points - amount
+            (characters[user_id][char_name]["points"])=points
         save_characters(characters)
         amount = str(amount)
         char_skill_name = str(char_skill_name)
