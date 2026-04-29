@@ -163,7 +163,7 @@ async def assign(ctx, char_name: str, char_skill_name: str, amount: int):
         return
 
     try:
-        char = char_skill_name.lower()
+        char_skill_name = char_skill_name.lower()
         msg = assign_skill(user_id, char_name, char_skill_name, amount)
     except Exception as error:
         traceback.print_exc()
