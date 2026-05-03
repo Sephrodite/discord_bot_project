@@ -244,8 +244,7 @@ def add_new(user_id, char_name, skill_name, skill_type):
 def make_char_list(user_id):
     characters = load_characters(CHAR_FILE)
     char_list = []
-    for i in characters[user_id]:
-        char_name = characters[user_id][i]
+    for char_name in characters[user_id]:
         char_list.append(char_name)
     return char_list
 
