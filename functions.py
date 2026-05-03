@@ -10,7 +10,11 @@ from loader import (
     save_characters,
     load_json,
     load_default,
-    save_json,)
+    save_json,
+    load_arts,
+    load_sports,
+    load_languages
+)
 
 CHAR_FILE = os.getenv("CHAR_FILE", "characters.json")
 DEFAULT = os.getenv("REFERENCE_FILE", "reference.json")
@@ -257,17 +261,17 @@ def make_skill_list():
     for skill in skills:
         skill_list.append(skill)
 
-#    arts = load_arts(ARTS)
-#    for art in arts:
-#        skill_list.append(art)
-#
-#    sports = load_sports(SPORTS)
-#    for sport in sports:
-#        skill_list.append(sport)
-#
-#    languages = load_languages(LANGUAGES)
-#    for language in languages:
-#        skill_list.append(language)
+    arts = load_arts(ARTS)
+    for art in arts:
+        skill_list.append(art)
+
+    sports = load_sports(SPORTS)
+    for sport in sports:
+        skill_list.append(sport)
+
+    languages = load_languages(LANGUAGES)
+    for language in languages:
+        skill_list.append(language)
     return skill_list
 
 
