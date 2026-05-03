@@ -233,7 +233,7 @@ def add_new(user_id, char_name, skill_name, skill_type):
         case "language":
             msg = add_lang(user_id, char_name, skill_name)
             languages = load_languages(LANGUAGES)
-            if skill_name in languages:
+            if skill_name in languages["languages"]:
                 pass
             else:
                 languages["languages"].append(skill_name)
@@ -242,7 +242,7 @@ def add_new(user_id, char_name, skill_name, skill_type):
         case "arts and crafts":
             msg = add_art(user_id, char_name, skill_name)
             arts = load_arts(ARTS)
-            if skill_name in arts:
+            if skill_name in arts["arts"]:
                 pass
             else:
                 arts["arts"].append(skill_name)
@@ -251,7 +251,7 @@ def add_new(user_id, char_name, skill_name, skill_type):
         case "sports":
             msg = add_sport(user_id, char_name, skill_name)
             sports = load_sports(SPORTS)
-            if skill_name in sports:
+            if skill_name in sports["sports"]:
                 pass
             else:
                 sports["sports"].append(skill_name)
