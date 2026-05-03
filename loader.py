@@ -34,7 +34,7 @@ def load_default(DEFAULT):
 #loads a default json file, used for loading languages, sports, arts, and skills (in theory)
 def load_json(file):
     try:
-        with open(file, 'r') as f:
+        with open(file, 'r', encoding='utf-8') as f:
             data = json.load(f)
             return data
     except FileNotFoundError:
@@ -48,7 +48,7 @@ def save_json(data, file):
 #loads languages from an existing file, since the generic one isn't working for some reason.
 def load_languages(languages_file=LANGUAGES):
     try:
-        with open(languages_file, 'r') as file:
+        with open(languages_file, 'r', encoding="utf-8") as file:
             languages = json.load(file)
             return languages
     except FileNotFoundError:
@@ -58,7 +58,7 @@ def load_languages(languages_file=LANGUAGES):
 #loads skills from an existing file, since the generic one isn't working for some reason.
 def load_skills(skills_file=SKILLS):
     try:
-        with open(skills_file, 'r') as file:
+        with open(skills_file, 'r', encoding="utf-8") as file:
             skills = json.load(file)
             return skills
     except FileNotFoundError:
@@ -68,7 +68,7 @@ def load_skills(skills_file=SKILLS):
 #loads sports from an existing file, since the generic one isn't working for some reason.
 def load_sports(sports_file=SPORTS):
     try:
-        with open(sports_file, 'r') as file:
+        with open(sports_file, 'r', encoding="utf-8") as file:
             sports = json.load(file)
             return sports
     except FileNotFoundError:
@@ -78,7 +78,7 @@ def load_sports(sports_file=SPORTS):
 #loads arts from an existing file, since the generic one isn't working for some reason.
 def load_arts(arts_file=ARTS):
     try:
-        with open(arts_file, 'r') as file:
+        with open(arts_file, 'r', encoding="utf-8") as file:
             arts = json.load(file)
             return arts
     except FileNotFoundError:
