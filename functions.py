@@ -226,29 +226,32 @@ def add_sport(user_id, char_name, skill_name):
 def add_new(user_id, char_name, skill_name, skill_type):
     match(skill_type):
         case "language":
+            msg = add_lang(user_id, char_name, skill_name)
             languages = load_languages(LANGUAGES)
             if skill_name in languages:
                 pass
             else:
                 languages.append(skill_name)
                 save_json(languages, LANGUAGES)
-            return add_lang(user_id, char_name, skill_name)
+            return msg
         case "arts and crafts":
+            msg = add_art(user_id, char_name, skill_name)
             arts = load_arts(ARTS)
             if skill_name in arts:
                 pass
             else:
                 arts.append(skill_name)
                 save_json(arts, ARTS)
-            return add_art(user_id, char_name, skill_name)
+            return msg
         case "sports":
+            msg = add_sport(user_id, char_name, skill_name)
             sports = load_sports(SPORTS)
             if skill_name in sports:
                 pass
             else:
                 sports.append(skill_name)
                 save_json(sports, SPORTS)
-            return add_sport(user_id, char_name, skill_name)
+            return msg
         
 def make_char_list(user_id):
     characters = load_characters(CHAR_FILE)
