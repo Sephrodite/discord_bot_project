@@ -7,7 +7,7 @@ DEFAULT = os.getenv("REFERENCE_FILE", "reference.json")
 LANGUAGES = os.getenv("LANGUAGES", "languages.json")
 SPORTS = os.getenv("SPORTS", "sports.json")
 ARTS = os.getenv("ARTS", "arts.json")
-SKILLS = os.getenv("SKILLS", "skills.json")
+SKILLS = os.getenv("SKILLS", "skill_list.json")
 
 def load_characters(char_file=CHAR_FILE):
     try:
