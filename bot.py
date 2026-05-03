@@ -283,7 +283,8 @@ async def checker_item_a_autocomplete(
     interaction: discord.Interaction,
     current: str,
 ):
-    values = make_char_list(interaction.user.id)
+    user_id = str(interaction.user.id)
+    values = make_char_list(user_id)
     filtered_values = filter_autocomplete_values(values, current)
 
     return [
