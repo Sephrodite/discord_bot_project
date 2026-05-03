@@ -16,6 +16,10 @@ def load_characters(char_file=CHAR_FILE):
             return characters
     except FileNotFoundError:
         return {}
+
+def save_characters(characters, char_file=CHAR_FILE):
+    with open(char_file, "w", encoding="utf-8") as file:
+        json.dump(characters, file, indent=4)
     
 # loads defeault statistics from an existing file
 def load_default(DEFAULT):
@@ -27,10 +31,7 @@ def load_default(DEFAULT):
         print("file not found")
         return
 
-def save_characters(characters, char_file=CHAR_FILE):
-    with open(char_file, "w", encoding="utf-8") as file:
-        json.dump(characters, file, indent=4)
-
+#loads a default json file, used for loading languages, sports, arts, and skills (in theory)
 def load_json(file):
     try:
         with open(file, 'r') as f:
@@ -43,3 +44,43 @@ def load_json(file):
 def save_json(data, file):
     with open(file, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=4)
+
+#loads languages from an existing file, since the generic one isn't working for some reason.
+def load_languages(languages_file=LANGUAGES):
+    try:
+        with open(languages_file, 'r') as file:
+            languages = json.load(file)
+            return languages
+    except FileNotFoundError:
+        print("file not found")
+        return
+
+#loads skills from an existing file, since the generic one isn't working for some reason.
+def load_skills(skills_file=SKILLS):
+    try:
+        with open(skills_file, 'r') as file:
+            skills = json.load(file)
+            return skills
+    except FileNotFoundError:
+        print("file not found")
+        return
+
+#loads sports from an existing file, since the generic one isn't working for some reason.
+def load_sports(sports_file=SPORTS):
+    try:
+        with open(sports_file, 'r') as file:
+            sports = json.load(file)
+            return sports
+    except FileNotFoundError:
+        print("file not found")
+        return
+
+#loads arts from an existing file, since the generic one isn't working for some reason.
+def load_arts(arts_file=ARTS):
+    try:
+        with open(arts_file, 'r') as file:
+            arts = json.load(file)
+            return arts
+    except FileNotFoundError:
+        print("file not found")
+        return

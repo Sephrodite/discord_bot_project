@@ -6,6 +6,7 @@ import math
 
 from loader import (
     load_characters,
+    load_skills,
     save_characters,
     load_json,
     load_default,
@@ -250,21 +251,21 @@ def make_char_list(user_id):
     return char_list
 
 def make_skill_list():
-    skills = load_json(SKILLS)
+    skills = load_skills(SKILLS)
     skill_list = []
 
     for skill in skills:
         skill_list.append(skill)
 
-#    arts = load_json(ARTS)
+#    arts = load_arts(ARTS)
 #    for art in arts:
 #        skill_list.append(art)
 #
-#    sports = load_json(SPORTS)
+#    sports = load_sports(SPORTS)
 #    for sport in sports:
 #        skill_list.append(sport)
 #
-#    languages = load_json(LANGUAGES)
+#    languages = load_languages(LANGUAGES)
 #    for language in languages:
 #        skill_list.append(language)
     return skill_list
