@@ -274,7 +274,7 @@ def make_skill_list():
         skill_list.append(language)
     return skill_list
 
-def skill(user_id, char_name, char_skill_name):
+def skillz(user_id, char_name, char_skill_name):
     characters = load_characters(CHAR_FILE)
     char_skill_name = char_skill_name.lower()
 
@@ -308,4 +308,23 @@ def skill(user_id, char_name, char_skill_name):
             msg = "Please create this character to roll skills for them! You can check your character list with the !listchars command. Please check the spelling to make sure your character can be found by me!"
     else:
         msg= "Please create your first character to participate in skill checks!"
+    return msg
+
+def assign_points(user_id, char_name, char_skill_name, amount):
+
+    if char_skill_name.lower() == "wyrdness":
+        msg= ("You are not allowed to upgrade this skill.")
+        return
+
+    try:
+        char_skill_name = char_skill_name.lower()
+        msg = assign_skill(user_id, char_name, char_skill_name, amount)
+    except Exception as error:
+        traceback.print_exc()
+        msg = (
+            "Could not assign that skill.\n"
+            "Check that the character name, skill name, and amount are correct.\n"
+            f"Error: `{type(error).__name__}: {error}`"
+        )
+
     return msg

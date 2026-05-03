@@ -18,11 +18,11 @@ from loader import (
 from functions import (
     assign_skill,
     make_skill_list,
-    roll_default,
     level_up,
     add_default_skills,
     make_char_list,
-    skill,
+    skillz,
+    assign_points,
     )
 from examples import (
     get_example_list_a_values,
@@ -126,33 +126,7 @@ async def lvlup(ctx):
     else:
         await ctx.send(f'Unauthorised action. Seph will run a level up once a month!')
 
-@bot.command()
-async def tester(ctx, name: str):
-    user_id = str(ctx.author.id)
-    char_name = name
-    
-@bot.command()
-async def assign(ctx, char_name: str, char_skill_name: str, amount: int):
-    user_id = str(ctx.author.id)
-
-    if char_skill_name.lower() == "wyrdness":
-        await ctx.send("You are not allowed to upgrade this skill.")
-        return
-
-    try:
-        char_skill_name = char_skill_name.lower()
-        msg = assign_skill(user_id, char_name, char_skill_name, amount)
-    except Exception as error:
-        traceback.print_exc()
-        msg = (
-            "Could not assign that skill.\n"
-            "Check that the character name, skill name, and amount are correct.\n"
-            f"Error: `{type(error).__name__}: {error}`"
-        )
-
-    await ctx.send(msg)
-
-
+# ---------------------------- Foobar Example ----------------------------
 
 @bot.tree.command(name="foo", description="Example slash command with choices and a number.")
 @app_commands.describe(
@@ -173,9 +147,6 @@ async def foo(
     await interaction.response.send_message(
         f"You selected option='{option.value}' and amount={amount}."
     )
-
-
-
 @bot.tree.command(
     name="bar",
     description="Example command with dynamic autocomplete from two files."
@@ -192,8 +163,6 @@ async def bar(
     await interaction.response.send_message(
         f"You selected item_a='{item_a}' and item_b='{item_b}'."
     )
-
-
 @bar.autocomplete("item_a")
 async def bar_item_a_autocomplete(
     interaction: discord.Interaction,
@@ -206,8 +175,6 @@ async def bar_item_a_autocomplete(
         app_commands.Choice(name=value, value=value)
         for value in filtered_values
     ]
-
-
 @bar.autocomplete("item_b")
 async def bar_item_b_autocomplete(
     interaction: discord.Interaction,
@@ -221,30 +188,30 @@ async def bar_item_b_autocomplete(
         for value in filtered_values
     ]
 
-
+# --------------------- SKILL ------------------------
 
 @bot.tree.command(
-    name="checker",
-    description="Example command with dynamic autocomplete from two files."
+    name="skill",
+    description="Rolls a skill check for the chosen character."
 )
 @app_commands.describe(
     char_name="choose your character",
     skill_name="choose the applicable skill",
 )
-async def checker(
+async def skill(
     interaction: discord.Interaction,
     char_name: str,
     skill_name: str,
 ):
     user_id = str(interaction.user.id)
-    msg = skill(user_id, char_name, skill_name)
+    msg = skillz(user_id, char_name, skill_name)
     await interaction.response.send_message(
         f'{msg}'
     )
 
 
-@checker.autocomplete("char_name")
-async def checker_item_a_autocomplete(
+@skill.autocomplete("char_name")
+async def skill_char_name_autocomplete(
     interaction: discord.Interaction,
     current: str,
 ):
@@ -258,8 +225,8 @@ async def checker_item_a_autocomplete(
     ]
 
 
-@checker.autocomplete("skill_name")
-async def checker_item_b_autocomplete(
+@skill.autocomplete("skill_name")
+async def skill_skill_name_autocomplete(
     interaction: discord.Interaction,
     current: str,
 ):
@@ -270,6 +237,59 @@ async def checker_item_b_autocomplete(
         app_commands.Choice(name=value, value=value)
         for value in filtered_values
     ]
+
+#------------------------------ ASSIGN POINTS -----------------------------------------
+
+@bot.tree.command(
+    name="assign",
+    description="Used to assign points to a skill for a character."
+)
+@app_commands.describe(
+    char_name="choose your character",
+    skill_name="choose the applicable skill",
+    amount="the amount of points to assign"
+)
+async def assign(
+    interaction: discord.Interaction,
+    char_name: str,
+    skill_name: str,
+    amount: int
+):
+    user_id = str(interaction.user.id)
+    msg = assign_points(user_id, char_name, skill_name, amount)
+    await interaction.response.send_message(
+        f'{msg}'
+    )
+
+
+@assign.autocomplete("char_name")
+async def assign_char_name_autocomplete(
+    interaction: discord.Interaction,
+    current: str,
+):
+    user_id = str(interaction.user.id)
+    values = make_char_list(user_id)
+    filtered_values = filter_autocomplete_values(values, current)
+
+    return [
+        app_commands.Choice(name=value, value=value)
+        for value in filtered_values
+    ]
+
+
+@assign.autocomplete("skill_name")
+async def assign_skill_name_autocomplete(
+    interaction: discord.Interaction,
+    current: str,
+):
+    values = make_skill_list()
+    filtered_values = filter_autocomplete_values(values, current)
+
+    return [
+        app_commands.Choice(name=value, value=value)
+        for value in filtered_values
+    ]
+
 
 if TOKEN is None:
 	print("ERROR: DISCORD_BOT_TOKEN not found in environment variables")
