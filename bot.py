@@ -115,7 +115,7 @@ async def listchars(ctx):
 
     await ctx.send(f'{msg}')
 
-def skill(user_id:str, char_name:str, char_skill_name:str):
+def skill(user_id, char_name, char_skill_name):
     characters = load_characters(CHAR_FILE)
     char_skill_name = char_skill_name.lower()
 
@@ -274,7 +274,7 @@ async def checker(
     user_id = str(interaction.user.id)
     msg = skill(user_id, char_name, skill_name)
     await interaction.response.send_message(
-        f"You selected char_name='{char_name}' and skill_name='{skill_name}'."
+        f"'{msg}'"
     )
 
 
