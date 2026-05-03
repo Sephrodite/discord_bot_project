@@ -265,22 +265,21 @@ def make_char_list(user_id):
 
 def make_skill_list():
     skills = load_skills(SKILLS)
+    arts = load_arts(ARTS)
+    sports = load_sports(SPORTS)
+    languages = load_languages(LANGUAGES)
     skill_list = []
 
+    print(arts)
     for skill in skills:
         skill_list.append(skill)
 
-    arts = load_arts(ARTS)
-    print(arts)
     for art in arts:
-        
         skill_list.append(art)
 
-    sports = load_sports(SPORTS)
     for sport in sports:
         skill_list.append(sport)
 
-    languages = load_languages(LANGUAGES)
     for language in languages:
         skill_list.append(language)
     return skill_list
