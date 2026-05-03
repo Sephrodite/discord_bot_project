@@ -271,7 +271,9 @@ def make_skill_list():
         skill_list.append(skill)
 
     arts = load_arts(ARTS)
+    print(arts)
     for art in arts:
+        
         skill_list.append(art)
 
     sports = load_sports(SPORTS)
