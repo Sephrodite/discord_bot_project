@@ -226,7 +226,7 @@ def add_sport(user_id, char_name, skill_name):
 def add_new(user_id, char_name, skill_name, skill_type):
     match(skill_type):
         case "language":
-            languages = load_json(LANGUAGES)
+            languages = load_languages(LANGUAGES)
             if skill_name in languages:
                 pass
             else:
@@ -234,7 +234,7 @@ def add_new(user_id, char_name, skill_name, skill_type):
                 save_json(languages, LANGUAGES)
             return add_lang(user_id, char_name, skill_name)
         case "arts and crafts":
-            arts = load_json(ARTS)
+            arts = load_arts(ARTS)
             if skill_name in arts:
                 pass
             else:
@@ -242,7 +242,7 @@ def add_new(user_id, char_name, skill_name, skill_type):
                 save_json(arts, ARTS)
             return add_art(user_id, char_name, skill_name)
         case "sports":
-            sports = load_json(SPORTS)
+            sports = load_sports(SPORTS)
             if skill_name in sports:
                 pass
             else:
