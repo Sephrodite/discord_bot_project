@@ -115,13 +115,11 @@ async def listchars(ctx):
 
     await ctx.send(f'{msg}')
 
-@bot.command()
-async def skill(ctx, char_name:str, char_skill_name:str):
+def skill(user_id:str, char_name:str, char_skill_name:str):
     characters = load_characters(CHAR_FILE)
-    user_id = str(ctx.author.id)
     char_skill_name = char_skill_name.lower()
 
-#Iterates over the entire skill array for a character and sets a message tied to the skill in question.
+    #Iterates over the entire skill array for a character and sets a message tied to the skill in question.
     if user_id in characters:
         if char_name in characters[user_id]:
             if char_skill_name in characters[user_id][char_name]["skills"]:
@@ -151,7 +149,7 @@ async def skill(ctx, char_name:str, char_skill_name:str):
             msg = "Please create this character to roll skills for them! You can check your character list with the !listchars command. Please check the spelling to make sure your character can be found by me!"
     else:
         msg= "Please create your first character to participate in skill checks!"
-    await ctx.send(f'{msg}')
+    return msg
 
 @bot.command()
 # allows the creator of this bot to level up the characters.
@@ -265,16 +263,18 @@ async def bar_item_b_autocomplete(
     description="Example command with dynamic autocomplete from two files."
 )
 @app_commands.describe(
-    item_a="Start typing to pick a value from List A.",
-    item_b="Start typing to pick a value from List B.",
+    char_name="choose your character",
+    item_b="choose the applicable skill",
 )
 async def checker(
     interaction: discord.Interaction,
-    item_a: str,
-    item_b: str,
+    char_name: str,
+    skill_name: str,
 ):
+    user_id = str(interaction.user.id)
+    msg = skill(user_id, char_name, skill_name)
     await interaction.response.send_message(
-        f"You selected item_a='{item_a}' and item_b='{item_b}'."
+        f"You selected char_name='{char_name}' and skill_name='{skill_name}'."
     )
 
 
