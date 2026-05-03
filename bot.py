@@ -240,7 +240,7 @@ async def assign_skill_name_autocomplete(
 )
 @app_commands.choices(skill_type=[
     app_commands.Choice(name="Language", value="language"),
-    app_commands.Choice(name="Arts and Crafts", value="arts_and_crafts"),
+    app_commands.Choice(name="Arts and Crafts", value="arts and crafts"),
     app_commands.Choice(name="Sports", value="sports"),
 ])
 async def add(
