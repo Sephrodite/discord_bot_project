@@ -263,5 +263,6 @@ def make_skill_list():
                 skill_name = i[x]
                 skill_list.append(skill_name)
         else:
+            skill_name = skills[i]
             skill_list.append(skill_name)
     return skill_list
