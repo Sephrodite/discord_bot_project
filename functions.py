@@ -250,8 +250,7 @@ def make_char_list(user_id):
         char_list.append(char_name)
     return char_list
 
-def make_skill_list(user_id):
-    user_id = str(user_id)
+def make_skill_list():
     skills = load_skills(SKILLS)
     skill_list = []
 
