@@ -126,67 +126,6 @@ async def lvlup(ctx):
     else:
         await ctx.send(f'Unauthorised action. Seph will run a level up once a month!')
 
-# ---------------------------- Foobar Example ----------------------------
-
-@bot.tree.command(name="foo", description="Example slash command with choices and a number.")
-@app_commands.describe(
-    option="Pick one of the example options.",
-    amount="Enter any number."
-)
-@app_commands.choices(option=[
-    app_commands.Choice(name="Alpha", value="alpha"),
-    app_commands.Choice(name="Beta", value="beta"),
-    app_commands.Choice(name="Charlie", value="charlie"),
-    app_commands.Choice(name="Delta", value="delta"),
-])
-async def foo(
-    interaction: discord.Interaction,
-    option: app_commands.Choice[str],
-    amount: int
-):
-    await interaction.response.send_message(
-        f"You selected option='{option.value}' and amount={amount}."
-    )
-@bot.tree.command(
-    name="bar",
-    description="Example command with dynamic autocomplete from two files."
-)
-@app_commands.describe(
-    item_a="Start typing to pick a value from List A.",
-    item_b="Start typing to pick a value from List B.",
-)
-async def bar(
-    interaction: discord.Interaction,
-    item_a: str,
-    item_b: str,
-):
-    await interaction.response.send_message(
-        f"You selected item_a='{item_a}' and item_b='{item_b}'."
-    )
-@bar.autocomplete("item_a")
-async def bar_item_a_autocomplete(
-    interaction: discord.Interaction,
-    current: str,
-):
-    values = get_example_list_a_values()
-    filtered_values = filter_autocomplete_values(values, current)
-
-    return [
-        app_commands.Choice(name=value, value=value)
-        for value in filtered_values
-    ]
-@bar.autocomplete("item_b")
-async def bar_item_b_autocomplete(
-    interaction: discord.Interaction,
-    current: str,
-):
-    values = get_example_list_b_values()
-    filtered_values = filter_autocomplete_values(values, current)
-
-    return [
-        app_commands.Choice(name=value, value=value)
-        for value in filtered_values
-    ]
 
 # --------------------- SKILL ------------------------
 
