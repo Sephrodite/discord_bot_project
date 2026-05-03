@@ -17,7 +17,7 @@ DEFAULT = os.getenv("REFERENCE_FILE", "reference.json")
 LANGUAGES = os.getenv("LANGUAGES", "languages.json")
 SPORTS = os.getenv("SPORTS", "sports.json")
 ARTS = os.getenv("ARTS", "arts.json")
-SKILLS = os.getenv("SKILLS", "skills.json")
+SKILLS = os.getenv("SKILLS", "skill_list.json")
     
 # rolls dice and checks if it's in the checked skills array if the check is successfull and the skill isn't in the array yet.
 def roll_default(char_skill, char_skill_name, characters, user_id, char_name):
@@ -250,7 +250,8 @@ def make_char_list(user_id):
         char_list.append(char_name)
     return char_list
 
-def make_skill_list():
+def make_skill_list(user_id):
+    user_id = str(user_id)
     skills = load_skills(SKILLS)
     skill_list = []
 
