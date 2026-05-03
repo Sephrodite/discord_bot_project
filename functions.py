@@ -165,6 +165,9 @@ def assign_skill(user_id, char_name, char_skill_name, amount):
             (characters[user_id][char_name]["skills"]["special"][char_skill_name])=char_skill
             points = points - amount
             (characters[user_id][char_name]["points"])=points
+        else:
+            msg = "Your characters doesn't have this skill listed yet! Please use the !add command to add the skill!"
+            return msg
         save_characters(characters)
         amount = str(amount)
         char_skill_name = str(char_skill_name)
@@ -328,3 +331,4 @@ def assign_points(user_id, char_name, char_skill_name, amount):
         )
 
     return msg
+

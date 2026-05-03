@@ -16,7 +16,7 @@ from loader import (
     load_default,
     save_json,)
 from functions import (
-    assign_skill,
+    add_new,
     make_skill_list,
     level_up,
     add_default_skills,
@@ -25,8 +25,6 @@ from functions import (
     assign_points,
     )
 from examples import (
-    get_example_list_a_values,
-    get_example_list_b_values,
     filter_autocomplete_values,
 )
 
@@ -228,6 +226,57 @@ async def assign_skill_name_autocomplete(
         app_commands.Choice(name=value, value=value)
         for value in filtered_values
     ]
+
+#------------------------------ ADD SKILL -----------------------------------------
+
+@bot.tree.command(
+    name="add",
+    description="Used to add a skill to a character."
+)
+@app_commands.describe(
+    char_name="choose your character",
+    skill_name="describe the applicable skill",
+    skill_type="choose the type of skill (language, arts and crafts, or sports)"
+)
+async def add(
+    interaction: discord.Interaction,
+    char_name: str,
+    skill_name: str,
+    skill_type: str
+):
+    user_id = str(interaction.user.id)
+    msg = add_new(user_id, char_name, skill_name, skill_type)
+    await interaction.response.send_message(
+        f'{msg}'
+    )
+
+@assign.autocomplete("char_name")
+async def add_new_char_name_autocomplete(
+    interaction: discord.Interaction,
+    current: str,
+):
+    user_id = str(interaction.user.id)
+    values = make_char_list(user_id)
+    filtered_values = filter_autocomplete_values(values, current)
+
+    return [
+        app_commands.Choice(name=value, value=value)
+        for value in filtered_values
+    ]
+
+@app_commands.choices(skill_type=[
+    app_commands.Choice(name="Language", value="language"),
+    app_commands.Choice(name="Arts and Crafts", value="arts_and_crafts"),
+    app_commands.Choice(name="Sports", value="sports"),
+])
+
+
+
+
+
+
+
+
 
 
 if TOKEN is None:
