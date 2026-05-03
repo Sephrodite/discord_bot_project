@@ -258,10 +258,23 @@ def make_skill_list():
                 skill_name = skills[i][x]
                 skill_list.append(skill_name)
         elif i == "language" or i == "arts and crafts" or i == "sports":
-            load_json(i)
-            for x in load_json(i):
-                skill_name = i[x]
-                skill_list.append(skill_name)
+            if i == "arts and crafts":
+                i = "arts"
+                load_json(i.upper())
+                for x in load_json(i):
+                    skill_name = i[x]
+                    skill_list.append(skill_name)
+            elif i == "language":
+                i = "languages"
+                load_json(i.upper())
+                for x in load_json(i):
+                    skill_name = i[x]
+                    skill_list.append(skill_name)
+            else:
+                load_json(i.upper())
+                for x in load_json(i):
+                    skill_name = i[x]
+                    skill_list.append(skill_name)
         else:
             skill_name = skills[i]
             skill_list.append(skill_name)
