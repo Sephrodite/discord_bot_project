@@ -254,8 +254,8 @@ def make_skill_list():
     for i in skills["skills"]:
         skill_name = skills["skills"][i]
         if i == "special" or i == "combat" or i == "magical":
-            for x in skills[i]:
-                skill_name = skills["skills"][i]
+            for x in skills["skills"][i]:
+                skill_name = skills["skills"][i][x]
                 skill_list.append(skill_name)
         elif i == "language" or i == "arts and crafts" or i == "sports":
             if i == "arts and crafts":
@@ -276,6 +276,6 @@ def make_skill_list():
                     skill_name = x
                     skill_list.append(skill_name)
         else:
-            skill_name = skills[i]
+            skill_name = skills["skills"][i]
             skill_list.append(skill_name)
     return skill_list
