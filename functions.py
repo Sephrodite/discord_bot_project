@@ -276,13 +276,13 @@ def make_skill_list():
     for skill in skills:
         skill_list.append(skill)
 
-    for art in arts:
+    for art in arts["arts"]:
         skill_list.append(art)
 
-    for sport in sports:
+    for sport in sports["sports"]:
         skill_list.append(sport)
 
-    for language in languages:
+    for language in languages["languages"]:
         skill_list.append(language)
     return skill_list
 
