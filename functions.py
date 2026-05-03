@@ -256,17 +256,17 @@ def make_skill_list():
     for skill in skills:
         skill_list.append(skill)
 
-    arts = load_json(ARTS)
-    for art in arts:
-        skill_list.append(art)
-
-    sports = load_json(SPORTS)
-    for sport in sports:
-        skill_list.append(sport)
-
-    languages = load_json(LANGUAGES)
-    for language in languages:
-        skill_list.append(language)
+#    arts = load_json(ARTS)
+#    for art in arts:
+#        skill_list.append(art)
+#
+#    sports = load_json(SPORTS)
+#    for sport in sports:
+#        skill_list.append(sport)
+#
+#    languages = load_json(LANGUAGES)
+#    for language in languages:
+#        skill_list.append(language)
     return skill_list
 
 
