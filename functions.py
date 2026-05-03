@@ -252,7 +252,6 @@ def make_skill_list():
     skills = load_default(DEFAULT)
     skill_list = []
     for i in skills["skills"]:
-        skill_name = skills["skills"][i]
         if i == "special" or i == "combat" or i == "magical":
             for x in skills["skills"][i]:
                 skill_name = skills["skills"][i][x]
