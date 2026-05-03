@@ -251,11 +251,11 @@ def make_char_list(user_id):
 def make_skill_list():
     skills = load_default(DEFAULT)
     skill_list = []
-    for i in skills:
-        skill_name = skills[i]
+    for i in skills["skills"]:
+        skill_name = skills["skills"][i]
         if i == "special" or i == "combat" or i == "magical":
             for x in skills[i]:
-                skill_name = skills[i]
+                skill_name = skills["skills"][i]
                 skill_list.append(skill_name)
         elif i == "language" or i == "arts and crafts" or i == "sports":
             if i == "arts and crafts":
