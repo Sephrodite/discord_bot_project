@@ -263,4 +263,6 @@ def make_skill_list():
             for x in load_json(i):
                 skill_name = i[x]
                 skill_list.append(skill_name)
+        else:
+            skill_list.append(skill_name)
     return skill_list
