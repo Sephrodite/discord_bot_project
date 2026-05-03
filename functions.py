@@ -251,30 +251,24 @@ def make_char_list(user_id):
 def make_skill_list():
     skills = load_default(DEFAULT)
     skill_list = []
-    for i in skills["skills"]:
-        if i == "special" or i == "combat" or i == "magical":
-            for x in skills["skills"][i]:
-                skill_name = skills["skills"][i][x]
-                skill_list.append(skill_name)
-        elif i == "language" or i == "arts and crafts" or i == "sports":
-            if i == "arts and crafts":
-                i = "arts"
-                load_json(i.upper())
-                for x in load_json(i):
-                    skill_name = x
-                    skill_list.append(skill_name)
-            elif i == "language":
-                i = "languages"
-                load_json(i.upper())
-                for x in load_json(i):
-                    skill_name = x
-                    skill_list.append(skill_name)
-            else:
-                load_json(i.upper())
-                for x in load_json(i):
-                    skill_name = x
-                    skill_list.append(skill_name)
+
+    for category_name, category_value in skills.items():
+
+        if category_name in ["language", "arts and crafts", "sports"]:
+            extra_skills = load_json(category_name)
+
+            if isinstance(extra_skills, dict):
+                skill_list.extend(str(skill_name) for skill_name in extra_skills.keys())
+            elif isinstance(extra_skills, list):
+                skill_list.extend(str(skill_name) for skill_name in extra_skills)
+
+        elif isinstance(category_value, dict):
+            skill_list.extend(str(skill_name) for skill_name in category_value.keys())
+
+        elif isinstance(category_value, list):
+            skill_list.extend(str(skill_name) for skill_name in category_value)
+
         else:
-            skill_name = skills["skills"][i]
-            skill_list.append(skill_name)
+            skill_list.append(str(category_name))
+
     return skill_list
