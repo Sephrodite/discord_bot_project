@@ -245,7 +245,7 @@ def make_char_list(user_id):
     characters = load_characters(CHAR_FILE)
     char_list = []
     for i in characters[user_id]:
-        char_name = characters[user_id]
+        char_name = characters[user_id][i]
         char_list.append(char_name)
     return char_list
 
@@ -256,11 +256,11 @@ def make_skill_list():
         skill_name = skills[i]
         if i == "special" or i == "combat" or i == "magical":
             for x in skills[i]:
-                skill_name = x
+                skill_name = skills[i][x]
                 skill_list.append(skill_name)
         elif i == "language" or i == "arts and crafts" or i == "sports":
             load_json(i)
             for x in load_json(i):
-                skill_name = x
+                skill_name = i[x]
                 skill_list.append(skill_name)
     return skill_list
