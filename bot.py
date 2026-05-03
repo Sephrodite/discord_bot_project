@@ -145,7 +145,7 @@ async def skill(
     user_id = str(interaction.user.id)
     msg = skillz(user_id, char_name, skill_name)
     await interaction.response.send_message(
-        f'{msg, skills}'
+        f'{msg}'
     )
 
 
