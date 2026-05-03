@@ -229,7 +229,7 @@ async def bar_item_b_autocomplete(
 )
 @app_commands.describe(
     char_name="choose your character",
-    item_b="choose the applicable skill",
+    skill_name="choose the applicable skill",
 )
 async def checker(
     interaction: discord.Interaction,
