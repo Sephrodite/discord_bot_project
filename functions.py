@@ -1,33 +1,21 @@
-
+import os
 import random
 import json
 import traceback
 import math
 
+from loader import (
+    load_characters,
+    save_characters,
+    load_json,
+    load_default,
+    save_json,)
+
 CHAR_FILE = os.getenv("CHAR_FILE", "characters.json")
 DEFAULT = os.getenv("REFERENCE_FILE", "reference.json")
-
-def load_characters(char_file=CHAR_FILE):
-    try:
-        with open(char_file, "r", encoding="utf-8") as file:
-            characters = json.load(file)
-            return characters
-    except FileNotFoundError:
-        return {}
-    
-# loads defeault statistics from an existing file
-def load_default(DEFAULT):
-    try:
-        with open(DEFAULT, 'r') as file:
-            default = json.load(file)
-            return default
-    except FileNotFoundError:
-        print("file not found")
-        return
-
-def save_characters(characters, char_file=CHAR_FILE):
-    with open(char_file, "w", encoding="utf-8") as file:
-        json.dump(characters, file, indent=4)
+LANGUAGES = os.getenv("LANGUAGES", "languages.json")
+SPORTS = os.getenv("SPORTS", "sports.json")
+ARTS = os.getenv("ARTS", "arts.json")
     
 # rolls dice and checks if it's in the checked skills array if the check is successfull and the skill isn't in the array yet.
 def roll_default(char_skill, char_skill_name, characters, user_id, char_name):
@@ -107,8 +95,7 @@ def level_up():
                     )
         (characters[user_id][char_name])["checked skills"]=[]
         save_characters(characters)
-        
-                    
+                        
 # rolls a skill check, and adds 1d10 to the skill if it failed, which is sent back to be saved
 def roll_up(char_skill):
     char_skill = int(char_skill)
@@ -187,9 +174,9 @@ def assign_skill(user_id, char_name, char_skill_name, amount):
 # adds specific languages to a characters sheet
 def add_lang(user_id, char_name, skill_name):
     characters = load_characters(CHAR_FILE)
-    # checks if they have the "other" skill still and replaces it's name for the language they wish to add.
+    # checks if they have the "other" skill still and replaces it's name for the language they wish to add and then refunds any points that were assigned to other. This is because the "other" skill is a placeholder for any language the user wishes to add, and it can be assigned points to be used for the language before it's added to the character sheet.
     if "other" in (characters[user_id][char_name]["skills"]["language"]):
-        characters[user_id][char_name]["skills"]["language"][skill_name]=int(characters[user_id][char_name]["skills"]["language"]["other"])
+        characters[user_id][char_name]["points"]=int(characters[user_id][char_name]["skills"]["language"]["other"])
         del characters[user_id][char_name]["skills"]["language"]["other"]
         save_characters(characters)
         msg = "Added " + skill_name + " to " + char_name + "\'s skill list! You can now assign points to it."
@@ -201,3 +188,79 @@ def add_lang(user_id, char_name, skill_name):
         msg = "Added " + skill_name + " to " + char_name + "\'s skill list! You can now assign points to it."
         return msg
 
+# adds specific languages to a characters sheet
+def add_art(user_id, char_name, skill_name):
+    characters = load_characters(CHAR_FILE)
+    # checks if they have the "any" skill still and replaces it's name for the art/craft they wish to add and then refunds any points that were assigned to other. This is because the "other" skill is a placeholder for any language the user wishes to add, and it can be assigned points to be used for the language before it's added to the character sheet.
+    if "any" in (characters[user_id][char_name]["skills"]["arts and crafts"]):
+        characters[user_id][char_name]["points"]=int(characters[user_id][char_name]["skills"]["arts and crafts"]["any"])
+        del characters[user_id][char_name]["skills"]["arts and crafts"]["any"]
+        save_characters(characters)
+        msg = "Added " + skill_name + " to " + char_name + "\'s skill list! You can now assign points to it."
+        return msg
+    # otherwise it adds the language to the list with the standard amount of points. 
+    else:
+        characters[user_id][char_name]["skills"]["arts and crafts"][skill_name]=int(5)
+        save_characters(characters)
+        msg = "Added " + skill_name + " to " + char_name + "\'s skill list! You can now assign points to it."
+        return msg
+    
+# adds specific languages to a characters sheet
+def add_sport(user_id, char_name, skill_name):
+    characters = load_characters(CHAR_FILE)
+    #adds whatever sport the user wants to add to the character sheet with the standard amount of points.
+    characters[user_id][char_name]["skills"]["sports"][skill_name]=int(10)
+    save_characters(characters)
+    msg = "Added " + skill_name + " to " + char_name + "\'s skill list! You can now assign points to it."
+    return msg
+
+def add_new(user_id, char_name, skill_name, skill_type):
+    match(skill_type):
+        case "language":
+            languages = load_json(LANGUAGES)
+            if skill_name in languages:
+                pass
+            else:
+                languages.append(skill_name)
+                save_json(languages, LANGUAGES)
+            return add_lang(user_id, char_name, skill_name)
+        case "arts and crafts":
+            arts = load_json(ARTS)
+            if skill_name in arts:
+                pass
+            else:
+                arts.append(skill_name)
+                save_json(arts, ARTS)
+            return add_art(user_id, char_name, skill_name)
+        case "sports":
+            sports = load_json(SPORTS)
+            if skill_name in sports:
+                pass
+            else:
+                sports.append(skill_name)
+                save_json(sports, SPORTS)
+            return add_sport(user_id, char_name, skill_name)
+        
+def make_char_list(user_id):
+    characters = load_characters(CHAR_FILE)
+    char_list = []
+    for i in characters[user_id]:
+        char_name = characters[user_id]
+        char_list.append(char_name)
+    return char_list
+
+def make_skill_list():
+    skills = load_default(DEFAULT)
+    skill_list = []
+    for i in skills:
+        skill_name = skills[i]
+        if i == "special" or i == "combat" or i == "magical":
+            for x in skills[i]:
+                skill_name = x
+                skill_list.append(skill_name)
+        elif i == "language" or i == "arts and crafts" or i == "sports":
+            load_json(i)
+            for x in load_json(i):
+                skill_name = x
+                skill_list.append(skill_name)
+    return skill_list

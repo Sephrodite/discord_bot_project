@@ -9,12 +9,20 @@ import traceback
 import random
 import json
 
-from functions import load_characters
-from functions import save_characters
-from functions import roll_default
-from functions import level_up
-from functions import add_default_skills
-from functions import assign_skill
+from loader import (
+    load_characters,
+    save_characters,
+    load_json,
+    load_default,
+    save_json,)
+from functions import (
+    assign_skill,
+    make_skill_list,
+    roll_default,
+    level_up,
+    add_default_skills,
+    make_char_list
+    )
 from examples import (
     get_example_list_a_values,
     get_example_list_b_values,
@@ -250,12 +258,55 @@ async def bar_item_b_autocomplete(
         for value in filtered_values
     ]
 
+
+
+@bot.tree.command(
+    name="checker",
+    description="Example command with dynamic autocomplete from two files."
+)
+@app_commands.describe(
+    item_a="Start typing to pick a value from List A.",
+    item_b="Start typing to pick a value from List B.",
+)
+async def checker(
+    interaction: discord.Interaction,
+    item_a: str,
+    item_b: str,
+):
+    await interaction.response.send_message(
+        f"You selected item_a='{item_a}' and item_b='{item_b}'."
+    )
+
+
+@checker.autocomplete("item_a")
+async def checker_item_a_autocomplete(
+    interaction: discord.Interaction,
+    current: str,
+):
+    values = make_char_list(user.id)
+    filtered_values = filter_autocomplete_values(values, current)
+
+    return [
+        app_commands.Choice(name=value, value=value)
+        for value in filtered_values
+    ]
+
+
+@checker.autocomplete("item_b")
+async def checker_item_b_autocomplete(
+    interaction: discord.Interaction,
+    current: str,
+):
+    values = make_skill_list()
+    filtered_values = filter_autocomplete_values(values, current)
+
+    return [
+        app_commands.Choice(name=value, value=value)
+        for value in filtered_values
+    ]
+
 if TOKEN is None:
 	print("ERROR: DISCORD_BOT_TOKEN not found in environment variables")
 else:
     print(f"TOKEN value: {repr(TOKEN)}")
     bot.run(TOKEN)
-
-
-
-
