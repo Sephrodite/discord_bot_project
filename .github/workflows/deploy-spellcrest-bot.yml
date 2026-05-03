@@ -1,0 +1,75 @@
+name: Deploy SpellCrest Bot
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-spellcrest-bot
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Write SSH key
+        shell: bash
+        env:
+          SSH_KEY_B64: ${{ secrets.SPELLCREST_VM_SSH_KEY_B64 }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s' "$SSH_KEY_B64" | base64 -d > ~/.ssh/spellcrest_key
+          chmod 600 ~/.ssh/spellcrest_key
+
+      - name: Show derived public key from private key
+        shell: bash
+        run: |
+          ssh-keygen -y -f ~/.ssh/spellcrest_key
+
+      - name: Add VM to known_hosts
+        shell: bash
+        run: |
+          ssh-keyscan -H 34.19.96.154 >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Debug SSH setup
+        shell: bash
+        run: |
+          echo "SSH key file exists:"
+          ls -la ~/.ssh/spellcrest_key 2>&1 || echo "Key file does not exist"
+          echo ""
+          echo "SSH key file size:"
+          wc -c ~/.ssh/spellcrest_key 2>&1 || echo "Could not check size"
+          echo ""
+          echo "SSH key first and last lines:"
+          head -1 ~/.ssh/spellcrest_key 2>&1 || echo "Could not read first line"
+          tail -1 ~/.ssh/spellcrest_key 2>&1 || echo "Could not read last line"
+          echo ""
+          echo "SSH_KEY variable length: ${#SSH_KEY}"
+          echo ""
+          echo "Attempting verbose SSH connection:"
+        env:
+          SSH_KEY: ${{ secrets.SPELLCREST_VM_SSH_KEY }}
+
+      - name: Test SSH connection
+        shell: bash
+        run: |
+          ssh -vvv -o IdentitiesOnly=yes \
+              -o StrictHostKeyChecking=no \
+              -i ~/.ssh/spellcrest_key \
+              thomashillebrink@34.19.96.154 \
+              "whoami && hostname"
+
+      - name: Deploy to SpellCrest VM
+        shell: bash
+        run: |
+          ssh -o IdentitiesOnly=yes \
+              -o StrictHostKeyChecking=no \
+              -i ~/.ssh/spellcrest_key \
+              thomashillebrink@34.19.96.154 \
+              "~/deploy-spellcrest-bot.sh"

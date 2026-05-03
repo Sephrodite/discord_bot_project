@@ -4,6 +4,8 @@ load_dotenv()
 import os
 import discord
 from discord.ext import commands
+from discord import app_commands
+import traceback
 import random
 import json
 
@@ -11,13 +13,13 @@ from functions import load_characters
 from functions import save_characters
 from functions import roll_default
 from functions import level_up
-from info import info_arche
 from functions import add_default_skills
-from functions import add_archetype_skills
-from functions import quick_assign
 from functions import assign_skill
-from functions import add_lang
-from functions import add_craft
+from examples import (
+    get_example_list_a_values,
+    get_example_list_b_values,
+    filter_autocomplete_values,
+)
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -25,12 +27,24 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
-CHAR_FILE = "characters.json"
+CHAR_FILE = os.getenv("CHAR_FILE", "characters.json")
 
 @bot.event
 # prepares the bot
 async def on_ready():
-	print(f'Logged in as {bot.user}')
+    dev_guild_id = os.getenv("DEV_GUILD_ID")
+
+    if dev_guild_id:
+        guild = discord.Object(id=int(dev_guild_id))
+        bot.tree.copy_global_to(guild=guild)
+        synced = await bot.tree.sync(guild=guild)
+
+        print(f"Synced {len(synced)} slash command(s) to guild {dev_guild_id}.")
+    else:
+        synced = await bot.tree.sync()
+        print(f"Synced {len(synced)} global slash command(s).")
+
+    print(f"Logged in as {bot.user}")
 
 @bot.command()
 # says hello back to the user
@@ -58,14 +72,11 @@ async def roll(ctx, dice: str):
     await ctx.send(f'You rolled a total of {dice_number} dice, of which the individual rolls were {result}. The total is: {total}')
 
 @bot.command()
-# creates a new character assigned to a discord user
-async def create(ctx, name: str, group: str, archetype: str):
+async def create(ctx, name: str):
     try:
         characters = load_characters(CHAR_FILE)
         user_id = str(ctx.author.id)
         char_name = name
-        group = group.lower()
-        archetype = archetype.lower()
 
         # adds the user to the file when creating their first characters.
         if user_id not in characters:
@@ -74,8 +85,7 @@ async def create(ctx, name: str, group: str, archetype: str):
 
         # checks if the character to be created already exists.
         if char_name not in characters[user_id]:
-            add_default_skills(user_id, char_name, group, archetype)
-            add_archetype_skills(user_id, char_name, group, archetype)
+            add_default_skills(user_id, char_name)
 
             await ctx.send(f'Character {name} successfully added to {ctx.author.display_name}\'s character list!')
         else:
@@ -98,39 +108,22 @@ async def listchars(ctx):
     await ctx.send(f'{msg}')
 
 @bot.command()
-# shows specifics of one character
-async def charbase(ctx, char_name:str):
-    characters = load_characters(CHAR_FILE)
-    user_id = str(ctx.author.id)
-
-    if user_id in characters:
-        if char_name in characters[user_id]:
-                char_group = characters[user_id][char_name]["group"]
-                char_arch = characters[user_id][char_name]["archetype"]
-        msg = "### " + char_name + "\n" + "Group: " + char_group + "\n" + "Archetype: " + char_arch
-    await ctx.send(f'{msg}')
-
-@bot.command()
-# rolls a specific skill check for a specific character
-async def skill(ctx, char_name:str, char_skill_name:str.lower):
+async def skill(ctx, char_name:str, char_skill_name:str):
     characters = load_characters(CHAR_FILE)
     user_id = str(ctx.author.id)
     char_skill_name = char_skill_name.lower()
 
-    # finds the skill to roll in the skills list of the character.
+#Iterates over the entire skill array for a character and sets a message tied to the skill in question.
     if user_id in characters:
         if char_name in characters[user_id]:
             if char_skill_name in characters[user_id][char_name]["skills"]:
                 char_skill = int(characters[user_id][char_name]["skills"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
-            elif char_skill_name in characters[user_id][char_name]["skills"]["job specialties"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["job specialties"][char_skill_name])
+            elif char_skill_name in characters[user_id][char_name]["skills"]["magical"]:
+                char_skill = int(characters[user_id][char_name]["skills"]["magical"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             elif char_skill_name in characters[user_id][char_name]["skills"]["combat"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["combat"][char_skill_name])
-                msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
-            elif char_skill_name in characters[user_id][char_name]["skills"]["classes"]:
-                char_skill = int(characters[user_id][char_name]["skills"]["classes"][char_skill_name])
                 msg = roll_default(char_skill, char_skill_name, characters, user_id, char_name)
             elif char_skill_name in characters[user_id][char_name]["skills"]["sports"]:
                 char_skill = int(characters[user_id][char_name]["skills"]["sports"][char_skill_name])
@@ -161,53 +154,108 @@ async def lvlup(ctx):
         await ctx.send(f'Level up successful!')
     else:
         await ctx.send(f'Unauthorised action. Seph will run a level up once a month!')
-        
-@bot.command()
-# allows users to retrieve information on the various archetypes available for character creation.
-async def infoarchetype(ctx, archetype:str.lower):
-    archetype = archetype.lower()
-    if archetype == "info":
-        msg = "These are the various archetypes to choose from. They have 100 skill points divided between the associated skills. Some have more associated skills but they have less points per skill compared to those that are already more specialised.\n\nList of available archetypes: \n- adventurer \n- beefcake \n- bon vivant \n- cold blooded \n- dreamer \n- egghead \n- explorer \n- le fatale \n- grease monkey \n- hard boiled \n- harlequin \n- hunter \n- mystic \n- outsider \n- rogue \n- scholar \n- seeker \n- sidekick \n- steadfast \n- swashbuckler \n- thrill seeker \n- two fisted"
-    else:
-        msg = info_arche(archetype)
-    
-    await ctx.send(f'{msg}')
 
+@bot.command()
+async def tester(ctx, name: str):
+    user_id = str(ctx.author.id)
+    char_name = name
     
 @bot.command()
-# command to assign any number of points to a specific skill
-async def assign(ctx, char_name:str, char_skill_name:str.lower, skill_amount: int):
+async def assign(ctx, char_name: str, char_skill_name: str, amount: int):
     user_id = str(ctx.author.id)
-    msg = assign_skill(user_id, char_name, char_skill_name, skill_amount)
-    await ctx.send(f'{msg}')
 
-@bot.command()
-# command to assign 30 points to multiple skills at the same time.
-async def quickassign(ctx, char_name:str, *skills:str.lower):
-    user_id = str(ctx.author.id)
-    msg = quick_assign(user_id, char_name, skills)
-    await ctx.send(f'{msg}')
+    if char_skill_name.lower() == "wyrdness":
+        await ctx.send("You are not allowed to upgrade this skill.")
+        return
 
-@bot.command()
-# command to add languages, arts and crafts skills to the characters skill sheet.
-async def add(ctx, char_name:str, cat:str.lower, skill_name:str.lower):
-    user_id =  str(ctx.author.id)
-    match cat:
-        case "lang":
-            msg = add_lang(user_id, char_name, skill_name)
-            await ctx.send(f'{msg}')
-        case "craft":
-            msg = add_craft(user_id, char_name, skill_name)
-            await ctx.send(f'{msg}')
-        case "art":
-            msg = add_craft(user_id, char_name, skill_name)
-            await ctx.send(f'{msg}')
-        case _:
-            msg = "You can currently only add languages and arts/crafts skills. "
-            await ctx.send(f'{msg}')
+    try:
+        char_skill_name = char_skill_name.lower()
+        msg = assign_skill(user_id, char_name, char_skill_name, amount)
+    except Exception as error:
+        traceback.print_exc()
+        msg = (
+            "Could not assign that skill.\n"
+            "Check that the character name, skill name, and amount are correct.\n"
+            f"Error: `{type(error).__name__}: {error}`"
+        )
+
+    await ctx.send(msg)
+
+
+
+@bot.tree.command(name="foo", description="Example slash command with choices and a number.")
+@app_commands.describe(
+    option="Pick one of the example options.",
+    amount="Enter any number."
+)
+@app_commands.choices(option=[
+    app_commands.Choice(name="Alpha", value="alpha"),
+    app_commands.Choice(name="Beta", value="beta"),
+    app_commands.Choice(name="Charlie", value="charlie"),
+    app_commands.Choice(name="Delta", value="delta"),
+])
+async def foo(
+    interaction: discord.Interaction,
+    option: app_commands.Choice[str],
+    amount: int
+):
+    await interaction.response.send_message(
+        f"You selected option='{option.value}' and amount={amount}."
+    )
+
+
+
+@bot.tree.command(
+    name="bar",
+    description="Example command with dynamic autocomplete from two files."
+)
+@app_commands.describe(
+    item_a="Start typing to pick a value from List A.",
+    item_b="Start typing to pick a value from List B.",
+)
+async def bar(
+    interaction: discord.Interaction,
+    item_a: str,
+    item_b: str,
+):
+    await interaction.response.send_message(
+        f"You selected item_a='{item_a}' and item_b='{item_b}'."
+    )
+
+
+@bar.autocomplete("item_a")
+async def bar_item_a_autocomplete(
+    interaction: discord.Interaction,
+    current: str,
+):
+    values = get_example_list_a_values()
+    filtered_values = filter_autocomplete_values(values, current)
+
+    return [
+        app_commands.Choice(name=value, value=value)
+        for value in filtered_values
+    ]
+
+
+@bar.autocomplete("item_b")
+async def bar_item_b_autocomplete(
+    interaction: discord.Interaction,
+    current: str,
+):
+    values = get_example_list_b_values()
+    filtered_values = filter_autocomplete_values(values, current)
+
+    return [
+        app_commands.Choice(name=value, value=value)
+        for value in filtered_values
+    ]
 
 if TOKEN is None:
 	print("ERROR: DISCORD_BOT_TOKEN not found in environment variables")
 else:
-	bot.run(TOKEN)
+    print(f"TOKEN value: {repr(TOKEN)}")
+    bot.run(TOKEN)
+
+
+
 
