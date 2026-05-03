@@ -55,6 +55,10 @@ def load_languages(languages_file=LANGUAGES):
         print("file not found")
         return
 
+def save_languages(languages, lang_file=LANGUAGES):
+    with open(lang_file, 'w', encoding='utf-8') as f:
+        json.dump(languages, f, indent=4)
+
 #loads skills from an existing file, since the generic one isn't working for some reason.
 def load_skills(skills_file=SKILLS):
     try:
@@ -64,6 +68,10 @@ def load_skills(skills_file=SKILLS):
     except FileNotFoundError:
         print("file not found")
         return
+    
+def save_skills(skills, skills_file=SKILLS):
+    with open(skills_file, 'w', encoding='utf-8') as f:
+        json.dump(skills, f, indent=4)
 
 #loads sports from an existing file, since the generic one isn't working for some reason.
 def load_sports(sports_file=SPORTS):
@@ -74,6 +82,10 @@ def load_sports(sports_file=SPORTS):
     except FileNotFoundError:
         print("file not found")
         return
+    
+def save_sports(sports, sports_file=SPORTS):
+    with open(sports_file, 'w', encoding='utf-8') as f:
+        json.dump(sports, f, indent=4)
 
 #loads arts from an existing file, since the generic one isn't working for some reason.
 def load_arts(arts_file=ARTS):
@@ -84,3 +96,7 @@ def load_arts(arts_file=ARTS):
     except FileNotFoundError:
         print("file not found")
         return
+
+def save_arts(arts, arts_file=ARTS):
+    with open(arts_file, 'w', encoding='utf-8') as f:
+        json.dump(arts, f, indent=4)

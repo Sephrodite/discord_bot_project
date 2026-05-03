@@ -7,13 +7,16 @@ import math
 from loader import (
     load_characters,
     load_skills,
+    save_arts,
     save_characters,
     load_json,
     load_default,
     save_json,
     load_arts,
     load_sports,
-    load_languages
+    load_languages,
+    save_languages,
+    save_sports
 )
 
 CHAR_FILE = os.getenv("CHAR_FILE", "characters.json")
@@ -232,7 +235,7 @@ def add_new(user_id, char_name, skill_name, skill_type):
                 pass
             else:
                 languages.append(skill_name)
-                save_json(languages, LANGUAGES)
+                save_languages(languages, LANGUAGES)
             return msg
         case "arts and crafts":
             msg = add_art(user_id, char_name, skill_name)
@@ -241,7 +244,7 @@ def add_new(user_id, char_name, skill_name, skill_type):
                 pass
             else:
                 arts.append(skill_name)
-                save_json(arts, ARTS)
+                save_arts(arts, ARTS)
             return msg
         case "sports":
             msg = add_sport(user_id, char_name, skill_name)
@@ -250,7 +253,7 @@ def add_new(user_id, char_name, skill_name, skill_type):
                 pass
             else:
                 sports.append(skill_name)
-                save_json(sports, SPORTS)
+                save_sports(sports, SPORTS)
             return msg
         
 def make_char_list(user_id):
