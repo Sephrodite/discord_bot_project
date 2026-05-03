@@ -16,6 +16,7 @@ DEFAULT = os.getenv("REFERENCE_FILE", "reference.json")
 LANGUAGES = os.getenv("LANGUAGES", "languages.json")
 SPORTS = os.getenv("SPORTS", "sports.json")
 ARTS = os.getenv("ARTS", "arts.json")
+SKILLS = os.getenv("SKILLS", "skills.json")
     
 # rolls dice and checks if it's in the checked skills array if the check is successfull and the skill isn't in the array yet.
 def roll_default(char_skill, char_skill_name, characters, user_id, char_name):
@@ -249,28 +250,23 @@ def make_char_list(user_id):
     return char_list
 
 def make_skill_list():
-    skills = load_default(DEFAULT)
+    skills = load_json(SKILLS)
     skill_list = []
 
-    for category_name, category_value in skills.items():
+    for skill in skills:
+        skill_list.append(skill)
+        
+    arts = load_json(ARTS)
+    for art in arts:
+        skill_list.append(art)
 
-        if category_name in ["language", "arts and crafts", "sports"]:
-            extra_skills = load_json(category_name)
+    sports = load_json(SPORTS)
+    for sport in sports:
+        skill_list.append(sport)
 
-            if isinstance(extra_skills, dict):
-                skill_list.extend(str(skill_name) for skill_name in extra_skills.keys())
-            elif isinstance(extra_skills, list):
-                skill_list.extend(str(skill_name) for skill_name in extra_skills)
-
-        elif isinstance(category_value, dict):
-            skill_list.extend(str(skill_name) for skill_name in category_value.keys())
-
-        elif isinstance(category_value, list):
-            skill_list.extend(str(skill_name) for skill_name in category_value)
-
-        else:
-            skill_list.append(str(category_name))
-
+    languages = load_json(LANGUAGES)
+    for language in languages:
+        skill_list.append(language)
     return skill_list
 
 
