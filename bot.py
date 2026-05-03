@@ -10,6 +10,7 @@ import random
 import json
 
 from loader import (
+    ARTS,
     load_characters,
     save_characters,
     load_json,
@@ -139,11 +140,12 @@ async def skill(
     interaction: discord.Interaction,
     char_name: str,
     skill_name: str,
-):
+):  
+    skills = make_skill_list()
     user_id = str(interaction.user.id)
     msg = skillz(user_id, char_name, skill_name)
     await interaction.response.send_message(
-        f'{msg}'
+        f'{msg, skills}'
     )
 
 
