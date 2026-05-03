@@ -274,7 +274,7 @@ async def checker(
     user_id = str(interaction.user.id)
     msg = skill(user_id, char_name, skill_name)
     await interaction.response.send_message(
-        f"'{msg}'"
+        f'{msg}'
     )
 
 
