@@ -57,7 +57,7 @@ def get_example_list_b_values() -> list[str]:
     return load_string_list(EXAMPLE_LIST_B_FILE)
 
 
-def filter_autocomplete_values(values: list[str], current: str, limit: int = 25) -> list[str]:
+def filter_autocomplete_values(values: list[str], current: str, limit: int = 27) -> list[str]:
     """
     Filter autocomplete values based on what the user has typed.
 
