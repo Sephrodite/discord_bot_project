@@ -188,7 +188,8 @@ def add_lang(user_id, char_name, skill_name):
     characters = load_characters(CHAR_FILE)
     # checks if they have the "other" skill still and replaces it's name for the language they wish to add and then refunds any points that were assigned to other. This is because the "other" skill is a placeholder for any language the user wishes to add, and it can be assigned points to be used for the language before it's added to the character sheet.
     if "other" in (characters[user_id][char_name]["skills"]["language"]):
-        characters[user_id][char_name]["points"]=int(characters[user_id][char_name]["skills"]["language"]["other"])
+        characters[user_id][char_name]["skills"]["language"][skill_name]=int(1)
+        characters[user_id][char_name]["points"]=int(characters[user_id][char_name]["skills"]["language"]["other"])-1
         del characters[user_id][char_name]["skills"]["language"]["other"]
         save_characters(characters)
         msg = "Added " + skill_name + " to " + char_name + "\'s skill list! You can now assign points to it."
@@ -205,7 +206,8 @@ def add_art(user_id, char_name, skill_name):
     characters = load_characters(CHAR_FILE)
     # checks if they have the "any" skill still and replaces it's name for the art/craft they wish to add and then refunds any points that were assigned to other. This is because the "other" skill is a placeholder for any language the user wishes to add, and it can be assigned points to be used for the language before it's added to the character sheet.
     if "any" in (characters[user_id][char_name]["skills"]["arts and crafts"]):
-        characters[user_id][char_name]["points"]=int(characters[user_id][char_name]["skills"]["arts and crafts"]["any"])
+        characters[user_id][char_name]["skills"]["arts and crafts"][skill_name]=int(5)
+        characters[user_id][char_name]["points"]=int(characters[user_id][char_name]["skills"]["arts and crafts"]["any"])-5
         del characters[user_id][char_name]["skills"]["arts and crafts"]["any"]
         save_characters(characters)
         msg = "Added " + skill_name + " to " + char_name + "\'s skill list! You can now assign points to it."
