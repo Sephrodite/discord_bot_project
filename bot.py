@@ -278,7 +278,7 @@ async def checker(
     )
 
 
-@checker.autocomplete("item_a")
+@checker.autocomplete("char_name")
 async def checker_item_a_autocomplete(
     interaction: discord.Interaction,
     current: str,
@@ -293,7 +293,7 @@ async def checker_item_a_autocomplete(
     ]
 
 
-@checker.autocomplete("item_b")
+@checker.autocomplete("skill_name")
 async def checker_item_b_autocomplete(
     interaction: discord.Interaction,
     current: str,
