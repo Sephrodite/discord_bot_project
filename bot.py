@@ -238,6 +238,11 @@ async def assign_skill_name_autocomplete(
     skill_name="describe the applicable skill",
     skill_type="choose the type of skill (language, arts and crafts, or sports)"
 )
+@app_commands.choices(skill_type=[
+    app_commands.Choice(name="Language", value="language"),
+    app_commands.Choice(name="Arts and Crafts", value="arts_and_crafts"),
+    app_commands.Choice(name="Sports", value="sports"),
+])
 async def add(
     interaction: discord.Interaction,
     char_name: str,
@@ -250,7 +255,7 @@ async def add(
         f'{msg}'
     )
 
-@assign.autocomplete("char_name")
+@add.autocomplete("char_name")
 async def add_new_char_name_autocomplete(
     interaction: discord.Interaction,
     current: str,
@@ -264,19 +269,8 @@ async def add_new_char_name_autocomplete(
         for value in filtered_values
     ]
 
-@app_commands.choices(skill_type=[
-    app_commands.Choice(name="Language", value="language"),
-    app_commands.Choice(name="Arts and Crafts", value="arts_and_crafts"),
-    app_commands.Choice(name="Sports", value="sports"),
-])
 
-
-
-
-
-
-
-
+#------------------------------ RUN THE BOT -----------------------------------------
 
 
 if TOKEN is None:
