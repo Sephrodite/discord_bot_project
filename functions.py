@@ -38,13 +38,13 @@ def roll_default(char_skill, char_skill_name, characters, user_id, char_name):
             (characters[user_id][char_name]["checked skills"]).append(char_skill_name)
             save_characters(characters)
         # returns a message that notifies the user that their check succeeded
-        msg = char_name + " rolled a " +  roll + " against " + char_skill + "! Check successfull"
+        msg = char_name + " rolled a " +  roll + " against " + char_skill + "! Check for " + char_skill_name + " successfull"
         return msg
     else:
         # returns a message that notifies the user on discord that their check failed. 
         roll= str(roll)
         char_skill = str(char_skill)
-        msg =  char_name + " rolled a " +  roll + " against your skill level of " + char_skill + "! Check/action failed."
+        msg =  char_name + " rolled a " +  roll + " against your skill level of " + char_skill + "! Check for " + char_skill_name + " failed."
         return msg
 
 # function for levelling up all characters
