@@ -15,14 +15,14 @@ from loader import (
 from functions import (
     add_new,
     make_skill_list,
-    level_up,
     add_default_skills,
     make_char_list,
     skillz,
     assign_points,
     )
 from adminstuff import (
-    fixpoints,)
+    fixpoints,
+    level_up,)
 from examples import (
     filter_autocomplete_values,
 )
