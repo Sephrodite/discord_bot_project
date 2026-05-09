@@ -125,7 +125,7 @@ async def lvlup(ctx):
 
 @bot.command()
 # allows the creator of this bot to level up the characters.
-async def lvlup(ctx, char_name: str, points: int):
+async def addpoints(ctx, char_name: str, points: int):
     author = (ctx.author.id)
     if author == 298490512128606223:
         msg = fixpoints(char_name, points)
