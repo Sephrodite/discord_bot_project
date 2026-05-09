@@ -10,12 +10,8 @@ import random
 import json
 
 from loader import (
-    ARTS,
     load_characters,
-    save_characters,
-    load_json,
-    load_default,
-    save_json,)
+    save_characters,)
 from functions import (
     add_new,
     make_skill_list,
@@ -25,6 +21,8 @@ from functions import (
     skillz,
     assign_points,
     )
+from adminstuff import (
+    fixpoints,)
 from examples import (
     filter_autocomplete_values,
 )
@@ -124,6 +122,16 @@ async def lvlup(ctx):
         await ctx.send(f'Level up successful!')
     else:
         await ctx.send(f'Unauthorised action. Seph will run a level up once a month!')
+
+@bot.command()
+# allows the creator of this bot to level up the characters.
+async def lvlup(ctx, char_name: str, points: int):
+    author = (ctx.author.id)
+    if author == 298490512128606223:
+        msg = fixpoints(char_name, points)
+        await ctx.send(f'{msg}')
+    else:
+        await ctx.send(f'Unauthorised action. Ask Seph to fix your points if you think there\'s a bug!')
 
 
 # --------------------- SKILL ------------------------
