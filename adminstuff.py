@@ -20,4 +20,5 @@ def fixpoints(char_name, points):
             if character_name == char_name:
                 characters[user_id][character_name]["points"]=int(points) + int(characters[user_id][character_name]["points"])
                 save_characters(characters)
-                return "Points for " + char_name + " have been set to " + points + "."
+                msg = "Points for " + char_name + " have been set to " + points + "."
+                return msg
