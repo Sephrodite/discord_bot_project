@@ -24,6 +24,20 @@ def fixpoints(char_name, points):
                 msg = "Points for " + char_name + " have been set to " + points + "."
                 return msg
 
+def addwyrd(char_name, points):
+    # this function is used to fix the wyrdness of a character in case of bugs.
+    characters = load_characters(CHAR_FILE)
+    for a in characters:
+        user_id = a
+        for i in characters[user_id]:
+            character_name = i
+            if character_name == char_name:
+                characters[user_id][character_name]["wyrdness"]=(int(points) + int(characters[user_id][character_name]["wyrdness"]))
+                save_characters(characters)
+                points = str(characters[user_id][character_name]["wyrdness"])
+                msg = "Wyrdness for " + char_name + " has been set to " + points + "."
+                return msg
+
 # rolls a skill check, and adds 1d10 to the skill if it failed, which is sent back to be saved
 def roll_up(char_skill):
     char_skill = int(char_skill)

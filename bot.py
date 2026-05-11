@@ -21,6 +21,7 @@ from functions import (
     assign_points,
     )
 from adminstuff import (
+    addwyrd,
     fixpoints,
     level_up,)
 from examples import (
@@ -133,6 +134,15 @@ async def addpoints(ctx, char_name: str, points: int):
     else:
         await ctx.send(f'Unauthorised action. Ask Seph to fix your points if you think there\'s a bug!')
 
+@bot.command()
+# allows the creator of this bot to level up the characters.
+async def wyrd(ctx, char_name: str, points: int):
+    author = (ctx.author.id)
+    if author == 298490512128606223:
+        msg = addwyrd(char_name, points)
+        await ctx.send(f'{msg}')
+    else:
+        await ctx.send(f'Unauthorised action. Only Seph may do this!')
 
 # --------------------- SKILL ------------------------
 
