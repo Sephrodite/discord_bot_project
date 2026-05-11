@@ -32,9 +32,9 @@ def addwyrd(char_name, points):
         for i in characters[user_id]:
             character_name = i
             if character_name == char_name:
-                characters[user_id][character_name]["wyrdness"]=(int(points) + int(characters[user_id][character_name]["wyrdness"]))
+                characters[user_id][character_name]["skills"]["wyrdness"]=(int(points) + int(characters[user_id][character_name]["skills"]["wyrdness"]))
                 save_characters(characters)
-                points = str(characters[user_id][character_name]["wyrdness"])
+                points = str(characters[user_id][character_name]["skills"]["wyrdness"])
                 msg = "Wyrdness for " + char_name + " has been set to " + points + "."
                 return msg
 
