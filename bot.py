@@ -19,6 +19,7 @@ from functions import (
     make_char_list,
     skillz,
     assign_points,
+    charsheet,
     )
 from adminstuff import (
     addwyrd,
@@ -188,6 +189,40 @@ async def skill_skill_name_autocomplete(
     current: str,
 ):
     values = make_skill_list()
+    filtered_values = filter_autocomplete_values(values, current)
+
+    return [
+        app_commands.Choice(name=value, value=value)
+        for value in filtered_values
+    ]
+
+# --------------------- sheet print ------------------------
+
+@bot.tree.command(
+    name="sheet",
+    description="Displays the character sheet for the chosen character."
+)
+@app_commands.describe(
+    char_name="choose your character",
+)
+async def sheet(
+    interaction: discord.Interaction,
+    char_name: str,
+):  
+    user_id = str(interaction.user.id)
+    msg = charsheet(user_id, char_name)
+    await interaction.response.send_message(
+        f'{msg}'
+    )
+
+
+@sheet.autocomplete("char_name")
+async def sheet_char_name_autocomplete(
+    interaction: discord.Interaction,
+    current: str,
+):
+    user_id = str(interaction.user.id)
+    values = make_char_list(user_id)
     filtered_values = filter_autocomplete_values(values, current)
 
     return [

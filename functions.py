@@ -280,3 +280,20 @@ def assign_points(user_id, char_name, char_skill_name, amount):
 
     return msg
 
+def charsheet(user_id, char_name):
+    characters = load_characters(CHAR_FILE)
+    if user_id in characters:
+        if char_name in characters[user_id]:
+            char_info = characters[user_id][char_name]
+            points = char_info["points"]
+            skills = char_info["skills"]
+            msg = f"### {char_name}\n\n**Points left to assign:** {points}\n\n**Skills:**\n"
+            for skill_category, skill_dict in skills.items():
+                msg += f"\n**{skill_category.capitalize()}:**\n"
+                for skill_name, skill_value in skill_dict.items():
+                    msg += f"- {skill_name}: {skill_value}\n"
+        else:
+            msg = "Character not found. Please check the spelling and try again."
+    else:
+        msg = "User not found. Please create a character first!"
+    return msg
