@@ -292,7 +292,6 @@ def charsheet(user_id, char_name):
                 char_skill_name = x
                 if char_skill_name in characters[user_id][char_name]["skills"]:
                     char_skill = str(characters[user_id][char_name]["skills"][char_skill_name])
-                    msg += f"- {char_skill_name}: {char_skill}\n"
                     if char_skill_name == "magical":
                         msg += f"**{char_skill_name.capitalize()}:**\n"
                         for magical_skill_name in characters[user_id][char_name]["skills"]["magical"]:
@@ -323,6 +322,7 @@ def charsheet(user_id, char_name):
                         for special_skill_name in characters[user_id][char_name]["skills"]["special"]:
                             char_skill = str(characters[user_id][char_name]["skills"]["special"][special_skill_name])
                             msg += f"- {special_skill_name}: {char_skill}\n"
+                    msg += f"- {char_skill_name}: {char_skill}\n"
 
         else:
             msg = "Character not found. Please check the spelling and try again."
