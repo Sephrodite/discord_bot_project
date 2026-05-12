@@ -30,13 +30,21 @@ def roll_default(char_skill, char_skill_name, characters, user_id, char_name):
     roll = (random.randint(1, 100))
     # comparse the roll to the skill
     if roll <= char_skill:
+        if roll == 1:
+            tier = "critical success!!"
+        elif roll <= (char_skill/5):
+            tier = "extraordinary success!"
+        elif roll <= (char_skill/2):
+            tier = "great success!"
+        else:
+            tier = "normal success."
         roll= str(roll)
         char_skill = str(char_skill)
         if char_skill_name not in characters[user_id][char_name]["checked skills"]:
             (characters[user_id][char_name]["checked skills"]).append(char_skill_name)
             save_characters(characters)
         # returns a message that notifies the user that their check succeeded
-        msg = char_name + " rolled a " +  roll + " against " + char_skill + "! Check for " + char_skill_name + " successfull"
+        msg = char_name + " rolled a " +  roll + " against " + char_skill + "! Check for " + char_skill_name + " was a " + tier
         return msg
     else:
         # returns a message that notifies the user on discord that their check failed. 
