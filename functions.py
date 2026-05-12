@@ -288,10 +288,43 @@ def charsheet(user_id, char_name):
             points = char_info["points"]
             skills = char_info["skills"]
             msg = f"### {char_name}\n\n**Points left to assign:** {points}\n\n**Skills:**\n"
-            for skill_category, skill_dict in skills.items():
-                msg += f"\n**{skill_category.capitalize()}:**\n"
-                for skill_name, skill_value in skill_dict.items():
-                    msg += f"- {skill_name}: {skill_value}\n"
+
+            for x in characters[user_id][char_name]["skills"]:
+                char_skill_name = x
+                if char_skill_name in characters[user_id][char_name]["skills"]:
+                    char_skill = int(characters[user_id][char_name]["skills"][char_skill_name])
+                    msg += f"- {char_skill_name}: {char_skill}\n"
+                elif char_skill_name == "magical":
+                    msg += f"**{char_skill_name.capitalize()}:**\n"
+                    for magical_skill_name in characters[user_id][char_name]["skills"]["magical"]:
+                        char_skill = int(characters[user_id][char_name]["skills"]["magical"][magical_skill_name])
+                        msg += f"- {magical_skill_name}: {char_skill}\n"
+                elif char_skill_name == "combat":
+                    msg += f"**{char_skill_name.capitalize()}:**\n"
+                    for combat_skill_name in characters[user_id][char_name]["skills"]["combat"]:
+                        char_skill = int(characters[user_id][char_name]["skills"]["combat"][combat_skill_name])
+                        msg += f"- {combat_skill_name}: {char_skill}\n"
+                elif char_skill_name == "sports":
+                    msg += f"**{char_skill_name.capitalize()}:**\n"
+                    for sports_skill_name in characters[user_id][char_name]["skills"]["sports"]:
+                        char_skill = int(characters[user_id][char_name]["skills"]["sports"][sports_skill_name])
+                        msg += f"- {sports_skill_name}: {char_skill}\n"
+                elif char_skill_name == "arts and crafts":
+                    msg += f"**{char_skill_name.capitalize()}:**\n"
+                    for arts_and_crafts_skill_name in characters[user_id][char_name]["skills"]["arts and crafts"]:
+                        char_skill = int(characters[user_id][char_name]["skills"]["arts and crafts"][arts_and_crafts_skill_name])
+                        msg += f"- {arts_and_crafts_skill_name}: {char_skill}\n"
+                elif char_skill_name == "language":
+                    msg += f"**{char_skill_name.capitalize()}:**\n"
+                    for language_skill_name in characters[user_id][char_name]["skills"]["language"]:
+                        char_skill = int(characters[user_id][char_name]["skills"]["language"][language_skill_name])
+                        msg += f"- {language_skill_name}: {char_skill}\n"
+                elif char_skill_name == "special":
+                    msg += f"**{char_skill_name.capitalize()}:**\n"
+                    for special_skill_name in characters[user_id][char_name]["skills"]["special"]:
+                        char_skill = int(characters[user_id][char_name]["skills"]["special"][special_skill_name])
+                    msg += f"- {char_skill_name}: {char_skill}\n"
+
         else:
             msg = "Character not found. Please check the spelling and try again."
     else:
