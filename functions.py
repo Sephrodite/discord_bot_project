@@ -286,7 +286,6 @@ def charsheet(user_id, char_name):
         if char_name in characters[user_id]:
             char_info = characters[user_id][char_name]
             points = char_info["points"]
-            skills = char_info["skills"]
             msg = f"### {char_name}\n\n**Points left to assign:** {points}\n\n**Skills:**\n"
 
             for x in characters[user_id][char_name]["skills"]:
