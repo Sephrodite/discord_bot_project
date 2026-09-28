@@ -33,6 +33,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
+commands_synced = False
 
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 CHAR_FILE = os.getenv("CHAR_FILE", "characters.json")
@@ -40,19 +41,38 @@ CHAR_FILE = os.getenv("CHAR_FILE", "characters.json")
 @bot.event
 # prepares the bot
 async def on_ready():
+    global commands_synced
+
+    if commands_synced:
+        print(f"Reconnected as {bot.user}; command tree is already synced.", flush=True)
+        return
+
     dev_guild_id = os.getenv("DEV_GUILD_ID")
 
     if dev_guild_id:
         guild = discord.Object(id=int(dev_guild_id))
-        bot.tree.copy_global_to(guild=guild)
+
+        # Keep development commands guild-scoped so updates and autocomplete
+        # changes appear immediately. Clear previously registered global
+        # commands so Discord does not continue offering removed commands.
+        if not bot.tree.get_commands(guild=guild):
+            bot.tree.copy_global_to(guild=guild)
+
+        bot.tree.clear_commands(guild=None)
+        await bot.tree.sync()
         synced = await bot.tree.sync(guild=guild)
 
-        print(f"Synced {len(synced)} slash command(s) to guild {dev_guild_id}.")
+        print(
+            f"Synced {len(synced)} slash command(s) to guild {dev_guild_id} "
+            "and cleared stale global commands.",
+            flush=True,
+        )
     else:
         synced = await bot.tree.sync()
-        print(f"Synced {len(synced)} global slash command(s).")
+        print(f"Synced {len(synced)} global slash command(s).", flush=True)
 
-    print(f"Logged in as {bot.user}")
+    commands_synced = True
+    print(f"Logged in as {bot.user}", flush=True)
 
 @bot.command()
 # says hello back to the user
@@ -331,5 +351,5 @@ async def add_new_char_name_autocomplete(
 if TOKEN is None:
 	print("ERROR: DISCORD_BOT_TOKEN not found in environment variables")
 else:
-    print(f"TOKEN value: {repr(TOKEN)}")
+    print("Discord bot token loaded.", flush=True)
     bot.run(TOKEN)
